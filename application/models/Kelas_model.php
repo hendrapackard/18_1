@@ -76,7 +76,7 @@ class Kelas_model extends MY_Model
             [
                 'field' => 'nama_kelas',
                 'label' => 'Nama Kelas',
-                'rules' => 'trim|required|min_length[1]|max_length[20]|is_unique[kelas.nama_kelas]|callback_alpha_numeric_coma_dash_dot_space'
+                'rules' => 'trim|required|min_length[1]|max_length[20]|callback_alpha_numeric_coma_dash_dot_space|callback_nama_kelas_unik'
             ],
         ];
 

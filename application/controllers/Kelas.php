@@ -66,7 +66,38 @@ class Kelas extends Admin_Controller
         redirect('kelas');
 
     }
-    ////////////////////////////////////////////////////////////////
+
+    // Mengedit data kelas
+    public function edit($id = null)
+    {
+        $kelas = $this->kelas->where('id_kelas',$id)->get();
+        if (!$kelas) {
+            $this->session->set_flashdata('warning', 'Data kelas tidak ada.');
+            redirect('kelas');
+        }
+
+        if (!$_POST) {
+            $input =(object) $kelas;
+        } else {
+            $input = (object) $this->input->post(null,true);
+        }
+
+        if (!$this->kelas->validate()) {
+
+            $main_view = 'kelas/form';
+            $form_action = "kelas/edit/$id";
+            $heading    = 'Edit Kelas';
+
+            $this->load->view('template',compact('main_view','form_action','heading', 'input'));
+            return;
+        }
+
+        if ($this->kelas->where('id_kelas',$id)->update($input)) {
+            $this->session->set_flashdata('success','Data kelas berhasil diupdate');
+        }
+        redirect('kelas');
+    }
+    ///////////////////////////////////////////////////////////
 
     //Callback
     public function alpha_numeric_coma_dash_dot_space($str)
@@ -75,5 +106,21 @@ class Kelas extends Admin_Controller
             $this->form_validation->set_message('alpha_numeric_coma_dash_dot_space', 'Hanya boleh berisi huruf, spasi, tanda hubung(-),titik(.) dan koma (,).');
             return false;
         }
+    }
+
+    public function nama_kelas_unik()
+    {
+        $nama_kelas = $this->input->post('nama_kelas');
+        $id_kelas = $this->input->post('id_kelas');
+
+        $this->kelas->where('nama_kelas', $nama_kelas);
+        !$id_kelas || $this->kelas->where('id_kelas!=', $id_kelas);
+        $kelas = $this->kelas->get();
+
+        if (count($kelas)) {
+            $this->form_validation->set_message('nama_kelas_unik', '%s sudah digunakan.');
+            return false;
+        }
+        return true;
     }
 }
