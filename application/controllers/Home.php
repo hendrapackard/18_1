@@ -2,7 +2,7 @@
 
 class Home extends MY_Controller
 {
-    public function index($page = null)
+    public function index()
     {
         $grafiks = $this->home->grafikKelas();
         $grafik2 = $this->home->grafikBuku();

@@ -18,7 +18,7 @@ class Login extends MY_Controller
         if ($this->login->login($input)) {
             redirect(base_url());
         } else {
-            $this->session->set_flashdata('error','Username atau password salah');
+            $this->session->set_flashdata('error','No Induk atau password salah, atau akun anda belum terverifikasi');
         }
 
         redirect('login');

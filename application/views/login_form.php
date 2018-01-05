@@ -37,22 +37,18 @@
         <div class="body">
             <?= form_open('login'); ?>
             <div class="msg">Login</div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
+            <div class="form-group form-float">
                 <div class="form-line">
-                    <?= form_input('username', $input->username, ['class' => 'form-control','placeholder' => 'Username', 'required autofocus']) ?>
+                    <?= form_label('No Induk','no_induk',['class' => 'form-label']) ?>
+                    <?= form_input('no_induk', $input->no_induk, ['class' => 'form-control', 'required autofocus']) ?>
                 </div>
-                <?= form_error('username') ?>
+                <?= form_error('no_induk') ?>
 
             </div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
+            <div class="form-group form-float">
                 <div class="form-line">
-                    <?= form_password('password', $input->password, ['class' => 'form-control','placeholder' => 'Password', 'required autofocus'])?>
+                    <?= form_label('Password','password',['class' => 'form-label']) ?>
+                    <?= form_password('password', $input->password, ['class' => 'form-control', 'required autofocus'])?>
                 </div>
                 <?= form_error('password'); ?>
             </div>

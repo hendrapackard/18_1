@@ -4,14 +4,14 @@
 
 class Login_model extends MY_Model
 {
-    public $table = 'pic';
+    public $table = 'user';
 
     public function getValidationRules()
     {
         $validationRules = [
             [
-                'field' => 'username',
-                'label' => 'Username',
+                'field' => 'no_induk',
+                'label' => 'No Induk',
                 'rules' => 'trim|required'
             ],
             [
@@ -27,7 +27,7 @@ class Login_model extends MY_Model
     public function getDefaultValues()
     {
         return [
-            'username' => '',
+            'no_induk' => '',
             'password' => ''
         ];
     }
@@ -36,16 +36,16 @@ class Login_model extends MY_Model
     {
         $input->password = md5($input->password);
 
-        $user = $this->db->where('username',$input->username)
+        $user = $this->db->where('no_induk',$input->no_induk)
             ->where('password',$input->password)
-            ->where('status', 'aktif')
+            ->where('is_verified', 'y')
             ->limit(1)
             ->get($this->table)
             ->row();
 
         if (count($user)) {
             $data = [
-                'username' => $user->username,
+                'no_induk' => $user->no_induk,
                 'level' => $user->level,
                 'id_user' => $user->id_user,
                 'nama' => $user->nama,
@@ -64,7 +64,7 @@ class Login_model extends MY_Model
     public function logout()
     {
         $data = [
-            'username' => null,
+            'no_induk' => null,
             'level' => null,
             'id_user' => null,
             'nama' => null,
