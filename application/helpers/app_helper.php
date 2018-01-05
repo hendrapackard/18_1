@@ -102,3 +102,12 @@ function isMinggu($tanggal)
         return false;
     }
 }
+
+/************************************ call fungsi JS *************************************************/
+function server_side(){
+    return
+        '<script type="text/javascript" src="'.base_url('/adminbsb/plugins/jquery/jquery.min.js').'"></script>'."\n".
+        '<script type="text/javascript" src="'.base_url('/adminbsb/plugins/bootstrap/js/bootstrap.js').'"></script>'."\n".
+        '<script type="text/javascript" src="'.base_url('/adminbsb/plugins/jquery-datatable/jquery.dataTables.js').'"></script>'."\n".
+        '<script type="text/javascript" src="'.base_url('/adminbsb/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js').'"></script>'."\n";
+}
