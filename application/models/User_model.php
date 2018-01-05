@@ -1,17 +1,18 @@
 <?php
 
 
-class Kelas_model extends MY_Model
+class User_model extends MY_Model
 {
     //Server side
-    var $column_order = array(null,'nama_kelas',null,null); //set column field database for datatable orderable
-    var $column_search = array('nama_kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = array('id_kelas' => 'asc'); // default order
+    var $column_order = array(null,'no_anggota','level','no_induk','nama','kelas.nama_kelas',null,null,null,null); //set column field database for datatable orderable
+    var $column_search = array('no_anggota','no_induk','level','nama','kelas.nama_kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $order = array('id_user' => 'asc'); // default order
 
     private function _get_datatables_query()
     {
 
-        $this->db->from($this->table);
+        $this->db->from($this->table)
+                 ->join('kelas', "$this->table.id_kelas = kelas.id_kelas", 'left');
 
         $i = 0;
 
@@ -69,27 +70,5 @@ class Kelas_model extends MY_Model
         return $this->db->count_all_results();
     }
     ////////////////////////////////////
-
-    //Mendapatkan aturan validasi
-    public function getValidationRules()
-    {
-        $validationRules = [
-            [
-                'field' => 'nama_kelas',
-                'label' => 'Nama Kelas',
-                'rules' => 'trim|required|min_length[1]|max_length[20]|callback_alpha_numeric_coma_dash_dot_space|callback_nama_kelas_unik'
-            ],
-        ];
-
-        return $validationRules;
-    }
-
-    //Memberikan nilai default ketika pertama kali ditampilkan
-    public function getDefaultValues()
-    {
-        return [
-            'nama_kelas' => ''
-        ];
-    }
 
 }
