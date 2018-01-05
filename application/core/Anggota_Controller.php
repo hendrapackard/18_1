@@ -5,7 +5,7 @@ class Anggota_Controller extends MY_Controller
     {
         parent::__construct();
 
-        $username = $this->session->userdata('username');
+        $username = $this->session->userdata('no_induk');
         $level = $this->session->userdata('level');
         $is_login = $this->session->userdata('is_login');
 

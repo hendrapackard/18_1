@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Aplikasi</title>
+    <title>Aplikasi Perpustakaan | SMA Negeri 2 Cileungsi</title>
     <!-- Favicon-->
     <link rel="icon" href="<?= base_url();?>/adminbsb/favicon.ico" type="image/x-icon">
 
@@ -63,7 +63,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="<?= base_url() ?>">Aplikasi</a>
+            <a class="navbar-brand" href="<?= base_url() ?>">Perpustakaan SMAN 2 Cileungsi</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -111,8 +111,10 @@
 
 <!-- Jquery DataTable Plugin Js -->
 <script src="<?= base_url();?>adminbsb/plugins/jquery-datatable/jquery.dataTables.js"></script>
-
 <script src="<?= base_url();?>adminbsb/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+
+<!-- Highchart Plugin Js -->
+<script src="<?= base_url();?>adminbsb/plugins/hightcharts/code/highcharts.js"></script>
 
 <!-- Custom Js -->
 <script src="<?= base_url();?>adminbsb/js/admin.js"></script>

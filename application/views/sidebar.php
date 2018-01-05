@@ -2,6 +2,7 @@
 $is_login = $this->session->userdata('is_login');
 $level = $this->session->userdata('level');
 $nama = $this->session->userdata('nama');
+$jenis_kelamin = $this->session->userdata('jenis_kelamin');
 $foto = $this->session->userdata('foto');
 ?>
 
@@ -30,8 +31,7 @@ $foto = $this->session->userdata('foto');
         </div>
     </div>
     <!-- #User Info -->
-
-    <!-- Menu jika login admin-->
+    <!-- Menu -->
     <div class="menu">
         <?php if ($is_login) : ?>
             <ul class="list">
@@ -59,23 +59,78 @@ $foto = $this->session->userdata('foto');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <?= anchor('pic','PIC',['class' => 'klik']) ?>
+                            <!--                        <a href="--><?//= base_url('kelas') ?><!--" class="klik">Kelas</a>-->
+                            <?= anchor('kelas','Kelas',['class' => 'klik']) ?>
                         </li>
                         <li>
-                            <?= anchor('proyek','Proyek',['class' => 'klik']) ?>
+                            <?= anchor('user','User',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('judul','Buku',['class' => 'klik']) ?>
                         </li>
                     </ul>
                 </li>
+            <?php endif ?>
+            <?php if ($level === 'anggota'): ?>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">layers</i>
+                        <span>Master</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <?= anchor('judul','Buku',['class' => 'klik']) ?>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif ?>
             <li>
             <a href="javascript:void(0);" class="menu-toggle">
                 <i class="material-icons">shopping_cart</i>
                 <span>Transaksi</span>
             </a>
             <ul class="ml-menu">
+            <?php if ($level === 'anggota'): ?>
                 <li>
-                    <?= anchor('kegiatan','Kegiatan',['class' => 'klik']) ?>
+                    <?= anchor('peminjaman-user','Peminjaman',['class' => 'klik']) ?>
                 </li>
-            </ul>
+            <?php endif ?>
+            <?php if ($level === 'admin'): ?>
+                <li>
+                    <?= anchor('peminjaman','Peminjaman',['class' => 'klik']) ?>
+                </li>
+
+            <?php endif ?>
+
+            <?php if ($level === 'anggota'): ?>
+                <li>
+                    <?= anchor('pengembalian-user','Pengembalian',['class' => 'klik']) ?>
+                </li>
+            <?php endif ?>
+
+            <?php if ($level === 'admin'): ?>
+                <li>
+                    <?= anchor('pengembalian','Pengembalian',['class' => 'klik']) ?>
+                </li>
+                </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">done</i>
+                        <span>Approve</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <?= anchor('approve-anggota','Approve Anggota',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('approve-pinjam','Approve Pinjam',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('approve-kembali','Approve Kembali',['class' => 'klik']) ?>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">work</i>
@@ -83,21 +138,32 @@ $foto = $this->session->userdata('foto');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <?= anchor('laporan-kegiatan','kegiatan',['class' => 'klik']) ?>
+                            <?= anchor('laporan-buku','Buku',['class' => 'klik']) ?>
                         </li>
-
+                        <li>
+                            <?= anchor('laporan-anggota','Anggota',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('laporan-peminjaman','Peminjaman',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('laporan-pengembalian','Pengembalian',['class' => 'klik']) ?>
+                        </li>
+                        <li>
+                            <?= anchor('laporan-denda','Denda',['class' => 'klik']) ?>
+                        </li>
                     </ul>
+                </li>
+                <li>
+                    <a class=" waves-effect waves-block" href="<?= base_url();?>petunjuk.pdf">
+                        <i class="material-icons">help</i>
+                        <span>Petunjuk</span>
+                    </a>
                 </li>
                 </ul>
             <?php endif ?>
-            </li>
-    </div>
+
         <?php else: ?>
-    <!-- #Menu jika login admin-->
-
-    <!-- Menu tanpa login -->
-    <div class="menu">
-
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
             <li>
@@ -109,6 +175,10 @@ $foto = $this->session->userdata('foto');
                     <li class="active">
                         <?= anchor(base_url(),'Home',['class' => 'klik']) ?>
                     </li>
+                    <li>
+                        <?= anchor('judul','Buku',['class' => 'klik']) ?>
+                    </li>
+
                 </ul>
             </li>
             <li>
@@ -117,19 +187,38 @@ $foto = $this->session->userdata('foto');
                     <span>Login</span>
                 </a>
             </li>
-            <?php endif ?>
+            <li>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">info</i>
+                    <span>About</span>
+                </a>
+                <ul class="ml-menu">
+                    <li>
+                        <?= anchor('cara-pinjam','Peminjaman Buku',['class' => 'klik']) ?>
+                    </li>
+                    <li>
+                        <?= anchor('about','Struktur Organisasi',['class' => 'klik']) ?>
+                    </li>
+                    <li>
+                        <?= anchor('visi','Visi dan Misi',['class' => 'klik']) ?>
+                    </li>
+                    <li>
+                        <?= anchor('tata','Tata Tertib',['class' => 'klik']) ?>
+                    </li>
+                </ul>
+            </li>
 
+            <?php endif ?>
         </ul>
     </div>
-    <!-- #Menu tanpa login -->
-
+    <!-- #Menu -->
     <!-- Footer -->
     <div class="legal">
         <div class="copyright">
-            &copy; 2017 <a href="javascript:void(0);">Aplikasi</a>
+            &copy; 2018 <a href="javascript:void(0);">SMAN 2 Cileungsi</a>
         </div>
         <div class="version">
-            <b>Designed by</b> <a href="http://hendrandroid10@gmail.com"> Hendra</a>.
+            <b>Designed by</b> <a href="http://hendrandroid10@gmail.com"> Hendra</a>. ({elapsed_time} seconds)
         </div>
     </div>
     <!-- #Footer -->

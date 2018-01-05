@@ -64,3 +64,41 @@ function formatHariTanggal($waktu)
     $tahun = date('Y',strtotime($waktu));
     return "$hari, $tanggal $bulan $tahun";
 }
+
+//Otomatis tanggal kembali +3 hari di form transaksi peminjaman
+// Format input: yyyy-mm-dd (Y-m-d)
+function cariTanggalKembali($tanggal_pinjam)
+{
+    $tanggal_kembali = date('Y-m-d', strtotime('+3 day', strtotime($tanggal_pinjam))) ;
+
+    $max_loop = 10;
+
+    for ($i = 0; $i < $max_loop; $i++) {
+        if (isMinggu($tanggal_kembali) || isLiburNasional($tanggal_kembali)) {
+            $tanggal_kembali = date('Y-m-d', strtotime('+1 day', strtotime($tanggal_kembali)));
+        }
+    }
+
+    return $tanggal_kembali;
+}
+
+function isLiburNasional($tanggal)
+{
+    $file = file_get_contents("hari_libur.json");
+    $hari_libur = json_decode($file, true);
+
+    if (array_key_exists($tanggal, $hari_libur)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isMinggu($tanggal)
+{
+    if (date("D", strtotime($tanggal)) === "Sun") {
+        return true;
+    } else {
+        return false;
+    }
+}
