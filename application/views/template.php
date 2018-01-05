@@ -124,6 +124,102 @@
 <script src="<?= base_url();?>adminbsb/js/pages/ui/tooltips-popovers.js"></script>
 <script src="<?= base_url();?>adminbsb/js/app.js"></script>
 
+<!-- Konfigurasi Grafik Js -->
+<script type="text/javascript">
+    $(function () {
+        $('#graf').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Data Kelas Yang Meminjam Buku'
+            },
+            subtitle: {
+                text: 'Tahun <?php echo date('Y') ?>'
+            },
+
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Persentase Peminjaman',
+                data: [
+                    <?php
+                    // data yang diambil dari database
+                    if(count($grafiks)>0)
+                    {
+                        foreach ($grafiks as $grafik) {
+                            echo "['" .$grafik->kelas . "'," . $grafik->jumlah ."],\n";
+                        }
+                    }
+                    ?>
+                ]
+            }]
+        });
+
+        //Diagram batang
+        var chart = Highcharts.chart('graf2', {
+
+            title: {
+                text: 'Top 10 Judul Buku Yang Dipinjam '
+            },
+
+            subtitle: {
+                text: 'Tahun <?php echo date('Y') ?>'
+            },
+
+            xAxis: {
+                categories: [<?php
+                    // data yang diambil dari database
+                    if(count($grafik2)>0)
+                    {
+                        foreach ($grafik2 as $grafik) {
+                            echo "['" .$grafik->judul ."'],\n";
+                        }
+                    }
+                    ?>]
+            },
+            yAxis: {
+
+                title: {
+                    text: 'Jumlah'
+                }
+            },
+
+            series: [{
+                type: 'column',
+                name: 'Jumlah',
+                colorByPoint: true,
+                data: [<?php
+                    // data yang diambil dari database
+                    if(count($grafik2)>0)
+                    {
+                        foreach ($grafik2 as $grafik) {
+                            echo "['" .$grafik->judul . "'," . $grafik->jumlah ."],\n";
+                        }
+                    }
+                    ?>],
+                showInLegend: false
+            }]
+        });
+    });
+</script>
 
 </body>
 
