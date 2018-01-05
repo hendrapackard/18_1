@@ -36,6 +36,44 @@ class Kelas extends Admin_Controller
         //output to json format
         echo json_encode($output);
     }
+
+    //Menambahkan Data Kelas
+    public function create()
+    {
+        if (!$_POST) {
+            $input = (object)$this->kelas->getDefaultValues();
+        } else {
+            $input = (object)$this->input->post(null, true);
+        }
+
+        if (!$this->kelas->validate()) {
+
+
+            $main_view = 'kelas/form';
+            $form_action = 'kelas/create';
+            $heading    = 'Tambah Kelas';
+
+            $this->load->view('template', compact('main_view', 'form_action', 'heading', 'input'));
+            return;
+        }
+
+        if ($this->kelas->insert($input)) {
+            $this->session->set_flashdata('success', 'Data kelas berhasil disimpan.');
+        } else {
+            $this->session->set_flashdata('error', 'Data kelas gagal disimpan.');
+        }
+
+        redirect('kelas');
+
+    }
     ////////////////////////////////////////////////////////////////
 
+    //Callback
+    public function alpha_numeric_coma_dash_dot_space($str)
+    {
+        if (!preg_match('/^[a-zA-Z0-9 .,\-]+$/i', $str)) {
+            $this->form_validation->set_message('alpha_numeric_coma_dash_dot_space', 'Hanya boleh berisi huruf, spasi, tanda hubung(-),titik(.) dan koma (,).');
+            return false;
+        }
+    }
 }

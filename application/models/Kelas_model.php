@@ -3,7 +3,8 @@
 
 class Kelas_model extends MY_Model
 {
-    var $column_order = array(null,'nama_kelas',null); //set column field database for datatable orderable
+    //Server side
+    var $column_order = array(null,'nama_kelas',null,null); //set column field database for datatable orderable
     var $column_search = array('nama_kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $order = array('id_kelas' => 'asc'); // default order
     private function _get_datatables_query()
@@ -66,4 +67,28 @@ class Kelas_model extends MY_Model
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+    ////////////////////////////////////
+
+    //Mendapatkan aturan validasi
+    public function getValidationRules()
+    {
+        $validationRules = [
+            [
+                'field' => 'nama_kelas',
+                'label' => 'Nama Kelas',
+                'rules' => 'trim|required|min_length[1]|max_length[20]|is_unique[kelas.nama_kelas]|callback_alpha_numeric_coma_dash_dot_space'
+            ],
+        ];
+
+        return $validationRules;
+    }
+
+    //Memberikan nilai default ketika pertama kali ditampilkan
+    public function getDefaultValues()
+    {
+        return [
+            'nama_kelas' => ''
+        ];
+    }
+
 }

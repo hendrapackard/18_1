@@ -51,7 +51,8 @@
                 "processing" : true,
                 "serverSide" : true,
                 "language": {
-                    "url": "adminbsb/plugins/jquery-datatable/Indonesian.json"
+                    "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
+                    searchPlaceholder: "Nama Kelas"
                 },
                 "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
                 "order" : [],
