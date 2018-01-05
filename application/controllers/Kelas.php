@@ -23,7 +23,7 @@ class Kelas extends Admin_Controller
             $row[] = $no;
             $row[] = $kelas->nama_kelas;
             $row[] = anchor("kelas/edit/$kelas->id_kelas",'<i class="material-icons">edit</i>', ['class' => 'btn btn-warning waves-effect','data-toggle' => 'tooltip', 'data-placement' => 'right' ,'title' => 'Edit']);
-            $row[] = form_open("kelas/delete/$1").form_hidden('id_kelas',"$1").form_button(['type' => 'submit','content' => '<i class="material-icons">delete</i>', 'class' => 'btn btn-danger waves-effect','data-toggle' => 'tooltip', 'data-placement' => 'right' ,'title' => 'Delete','onclick' => "return confirm('Anda yakin akan menghapus kelas ini?')"]).form_close();
+            $row[] = form_open("kelas/delete/$kelas->id_kelas").form_hidden('id_kelas',"$kelas->id_kelas").form_button(['type' => 'submit','content' => '<i class="material-icons">delete</i>', 'class' => 'btn btn-danger waves-effect','data-toggle' => 'tooltip', 'data-placement' => 'right' ,'title' => 'Delete','onclick' => "return confirm('Anda yakin akan menghapus kelas ini?')"]).form_close();
             $data[] = $row;
         }
 
@@ -94,6 +94,24 @@ class Kelas extends Admin_Controller
 
         if ($this->kelas->where('id_kelas',$id)->update($input)) {
             $this->session->set_flashdata('success','Data kelas berhasil diupdate');
+        }
+        redirect('kelas');
+    }
+
+    //Menghapus Data Kelas
+    public function delete($id = null)
+    {
+        $kelas = $this->kelas->where('id_kelas',$id)->get();
+        if (!$kelas) {
+            $this->session->set_flashdata('warning','Data kelas tidak ada');
+            redirect('kelas');
+        }
+
+        if ($this->kelas->where('id_kelas',$id)->delete())
+        {
+            $this->session->set_flashdata('success','Data kelas berhasil dihapus');
+        }else {
+            $this->session->set_flashdata('error','Data kelas gagal dihapus');
         }
         redirect('kelas');
     }
