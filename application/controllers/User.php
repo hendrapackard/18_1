@@ -66,8 +66,9 @@ class User extends Admin_Controller
 
             if ($upload) {
                 $input->foto = "$fotoFileName.jpg";
-//                Data for column "foto"
-                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",700,700);
+
+        //Resize Foto
+                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",100,150);
             }
         }
 
@@ -181,6 +182,15 @@ class User extends Admin_Controller
     }
 
     ///////////////////////////////////////////////////////////
+
+    //Cetak Kartu Perpustakaan
+    public function cetak_kartu_anggota($id = null)
+    {
+        $users = $this->user->where('id_user',$id)->get();
+
+        // Template, return as string.
+        $html = $this->load->view('user/kartu_pdf', compact('users'));
+    }
 
     //Callback
     public function alpha_space($str)
