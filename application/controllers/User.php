@@ -158,6 +158,28 @@ class User extends Admin_Controller
 
         redirect('user');
     }
+
+    //Menghapus Data User
+    public function delete($id = null)
+    {
+        $user = $this->user->where('id_user',$id)->get();
+        if (!$user) {
+            $this->session->set_flashdata('warning','Data user tidak ada');
+            redirect('user');
+        }
+
+        if ($this->user->where('id_user',$id)->delete()){
+
+            $this->user->deleteFoto($user->foto);
+
+            $this->session->set_flashdata('success','Data user berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('error','Data user gagal dihapus');
+        }
+
+        redirect('user');
+    }
+
     ///////////////////////////////////////////////////////////
 
     //Callback
