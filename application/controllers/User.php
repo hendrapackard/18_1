@@ -22,9 +22,9 @@ class User extends Admin_Controller
             $row = array();
             $row[] = $no;
             $row[] = $user->no_anggota;
-            $row[] = $user->level;
+            $row[] = ucfirst($user->level);
             $row[] = $user->no_induk;
-            $row[] = $user->nama;
+            $row[] = ucfirst($user->nama);
             $row[] = $user->nama_kelas;
             $row[] = $user->is_verified == 'n' ? '<span class="label label-danger">Belum Terverifikasi' : '<span class="label label-success">Terverifikasi';
             $row[] = $user->level == 'admin' || $user->is_verified == 'n' ? ''  : anchor("user/cetak_kartu_anggota/$user->id_user",'<i class="material-icons">print</i>',['class' => 'btn btn-info waves-effect','data-toggle' => 'tooltip', 'data-placement' => 'right' ,'title' => 'Cetak Kartu','target' => '_blank','onClick'=>"window.open('user/cetak_kartu_anggota/$user->id_user','pagename','resizable,height=600,width=400'); return false;"]);
@@ -73,7 +73,7 @@ class User extends Admin_Controller
 
         $data['autonumber'] = $this->user->autoNumber('user', 'no_anggota', 4, date("Ym"));
 
-
+        //validasi
         if (!$this->user->validate() ||
             $this->form_validation->error_array()) {
             $main_view      = 'user/form';
@@ -91,6 +91,69 @@ class User extends Admin_Controller
             $this->session->set_flashdata('success','Data user berhasil disimpan');
         } else {
             $this->session->set_flashdata('error','Data user gagal disimpan');
+        }
+
+        redirect('user');
+    }
+
+    //Mengedit Data User
+    public function edit($id = null)
+    {
+        $user = $this->user->where('id_user',$id)->get();
+        if (!$user) {
+            $this->session->set_flashdata('warning','Data user tidak ada');
+            redirect('user');
+        }
+
+        if (!$_POST) {
+            $input = (object) $user;
+            $input->password ='';
+        } else {
+            $input = (object) $this->input->post(null,true);
+            $input->foto = $user->foto;
+        }
+
+        //upload new cover (if any)
+        if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
+            //upload new cover (if any)
+            $no_induk = $this->input->post('no_induk');
+            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $upload = $this->user->uploadFoto('foto', $fotoFileName);
+
+        //Resize to 100x150px
+            if ($upload) {
+                $input->foto = "$fotoFileName.jpg";
+                $this->user->fotoResize('foto', "./foto/$fotoFileName.jpg",100,150);
+
+        //Delete old foto
+                if ($user->foto) {
+                    $this->user->deleteFoto($user->foto);
+                }
+            }
+        }
+
+        //validasi
+        if (!$this->user->validate() ||
+            $this->form_validation->error_array()) {
+            $main_view  = 'user/form';
+            $form_action = "user/edit/$id";
+            $heading    = 'Edit User';
+
+            $this->load->view('template',compact( 'main_view', 'heading','form_action','input'));
+            return;
+        }
+
+        //Passwordstring
+        if (!empty($input->password)) {
+            $input->password = md5($input->password);
+        } else {
+            unset($input->password);
+        }
+
+        if ($this->user->where('id_user',$id)->update($input)) {
+            $this->session->set_flashdata('success','Data user berhasil diupdate');
+        } else {
+            $this->session->set_flashdata('error','Data user gagal diupdate');
         }
 
         redirect('user');

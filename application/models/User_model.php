@@ -182,6 +182,14 @@ class User_model extends MY_Model
         }
     }
 
+    //Menghapus Foto
+    public function deleteFoto($imgFile)
+    {
+        if (file_exists("./foto/$imgFile")) {
+            unlink("./foto/$imgFile");
+        }
+    }
+
     //membuat otomatis nomor anggota
     public function autoNumber($table, $kolom, $lebar=0, $awalan=null)
     {
