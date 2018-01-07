@@ -61,13 +61,16 @@ $(function () {
     });
     $('.tabel-biasa').DataTable({
         responsive: true,
-        pageLength:5,
         "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
         "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5
     });
+    $('.tabel-biasa-2').DataTable({
+        responsive: true,
+        "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
+        "lengthMenu": [ [2, 10, 25, -1], [2, 10, 25, "All"] ],"pageLength": 2
+    });
     $('.tabel-no-sort').DataTable({
         responsive: true,
-        pageLength:5,
         "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
         "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
         sorting:false
