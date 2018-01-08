@@ -28,7 +28,9 @@ $level = $this->session->userdata('level');
                                 <th>Judul</th>
                                 <th>Penulis</th>
                                 <th>Penerbit</th>
-                                <th>Jumlah Copy</th>
+                                <th>Total</th>
+                                <th>Ada</th>
+                                <th>Dipinjam</th>
                                 <th>Cover</th>
                                 <th>Letak</th>
                                 <?php if ($level === 'admin'): ?>

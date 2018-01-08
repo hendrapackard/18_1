@@ -8,7 +8,7 @@ class Kelas extends Admin_Controller
     public function index()
     {
         $main_view = 'kelas/index';
-        $this->load->view('template',compact('main_view','kelass'));
+        $this->load->view('template',compact('main_view'));
     }
     
     //Datatable serverside

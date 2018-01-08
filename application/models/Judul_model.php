@@ -3,7 +3,7 @@
 class Judul_model extends MY_Model
 {
     //Server side
-    var $column_order = array(null,'isbn','judul_buku','penulis','penerbit',null,null,'letak'); //set column field database for datatable orderable
+    var $column_order = array(null,'isbn','judul_buku','penulis','penerbit','jumlah_total','jumlah_ada','jumlah_dipinjam',null,'letak',null,null,null); //set column field database for datatable orderable
     var $column_search = array('isbn','judul_buku','penulis','penerbit','letak'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $order = array('id_judul' => 'asc'); // default order
 
@@ -14,9 +14,7 @@ class Judul_model extends MY_Model
             ->select("IFNULL((SELECT COUNT(buku.id_buku) FROM buku WHERE buku.id_judul = judul.id_judul GROUP BY buku.id_judul),0) AS jumlah_total", false)
             ->select("IFNULL((SELECT COUNT(buku.id_buku) FROM buku WHERE buku.id_judul = judul.id_judul AND buku.is_ada = 'y' GROUP BY buku.id_judul),0) AS jumlah_ada", false)
             ->select("IFNULL((SELECT COUNT(buku.id_buku) FROM buku WHERE buku.id_judul = judul.id_judul AND buku.is_ada = 'n' GROUP BY buku.id_judul),0) AS jumlah_dipinjam", false)
-            ->from('judul')
-            ->group_by('judul.id_judul')
-            ->order_by('judul.id_judul', 'DESC');
+            ->from('judul');
 
         $i = 0;
 
