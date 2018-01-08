@@ -172,4 +172,13 @@ class Judul_model extends MY_Model
             return false;
         }
     }
+
+    //Menghapus Cover Buku
+    public function deleteCover($imgFile)
+    {
+        if (file_exists("./cover/$imgFile")) {
+            unlink("./cover/$imgFile");
+        }
+    }
+
 }

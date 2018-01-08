@@ -160,6 +160,28 @@ class Judul extends MY_Controller
         redirect('judul');
     }
 
+    //Menghapus Judul Buku
+    public function delete($id = null)
+    {
+        $this->isLogin();
+
+        $judul = $this->judul->where('id_judul',$id)->get();
+        if (!$judul) {
+            $this->session->set_flashdata('warning', 'Data judul tidak ada.');
+            redirect('judul');
+        }
+
+        if ($this->judul->where('id_judul',$id)->delete()) {
+//            Delete cover
+            $this->judul->deleteCover($judul->cover);
+            $this->session->set_flashdata('success', 'Data judul berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('error','Data judul gagal dihapus');
+        }
+
+        redirect('judul');
+    }
+
     ///////////////////////////////////////////////////////////
 
     //Callback
