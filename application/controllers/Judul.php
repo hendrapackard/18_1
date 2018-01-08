@@ -54,7 +54,83 @@ class Judul extends MY_Controller
         echo json_encode($output);
     }
 
+    //Harus Login terlebih dahulu
+    protected function isLogin()
+    {
+        $isLogin = $this->session->userdata('is_login');
+        if(!$isLogin) {
+            redirect(base_url());
+        }
+    }
+
+    // Menambahkan Judul Buku
+    public function create()
+    {
+        $this->isLogin();
+
+        if(!$_POST) {
+            $input = (object)$this->judul->getDefaultValues();
+        } else {
+            $input = (object) $this->input->post(null,true);
+        }
+
+        if (!empty($_FILES) && $_FILES['cover']['size'] > 0) {
+            $coverFileName = date('YmdHis'); //Cover file name
+            $upload = $this->judul->uploadCover('cover',$coverFileName);
+
+            if ($upload) {
+                $input->cover = "$coverFileName.jpg";
+
+                //Data for column "cover"
+                $this->judul->coverResize('cover',"./cover/$coverFileName.jpg",100,150);
+            }
+        }
+
+        if (!$this->judul->validate() ||
+            $this->form_validation->error_array()) {
+            $main_view  = 'judul/form';
+            $form_action = 'judul/create';
+            $heading = 'Tambah Judul Buku';
+            $this->load->view('template',compact( 'main_view', 'form_action','heading','input'));
+            return;
+
+        }
+
+        if ($this->judul->insert($input)) {
+            $this->session->set_flashdata('success','Data judul berhasil disimpan');
+        } else {
+            $this->session->set_flashdata('error','Data judul gagal disimpan');
+        }
+        redirect('judul');
+    }
+
     ///////////////////////////////////////////////////////////
 
+    //Callback
+    public function isbn_unik()
+    {
+        $isbn   = $this->input->post('isbn',true);
+        $id_judul = $this->input->post('id_judul',true);
+
+        $this->judul->where('isbn',$isbn);
+        !$id_judul || $this->judul->where('id_judul !=', $id_judul);
+        $judul = $this->judul->get();
+
+        if (count($judul)) {
+            $this->form_validation->set_message('isbn_unik', '%s sudah digunakan');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function alpha_space($str)
+    {
+        if (!preg_match('/^[a-zA-Z \-]+$/i',$str) )
+        {
+            $this->form_validation->set_message('alpha_space', 'Hanya boleh berisi huruf dan spasi');
+            return false;
+        }
+    }
 
 }

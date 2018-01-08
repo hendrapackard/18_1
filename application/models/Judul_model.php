@@ -73,4 +73,103 @@ class Judul_model extends MY_Model
     }
     ////////////////////////////////////
 
+    //Mendapatkan aturan validasi
+    public function getValidationRules()
+    {
+        $validationRules = [
+            [
+                'field' => 'isbn',
+                'label' => 'ISBN',
+                'rules' => 'trim|required|min_length[10]|numeric|callback_isbn_unik'
+            ],
+            [
+                'field' => 'judul_buku',
+                'label' => 'Judul Buku',
+                'rules' => 'trim|required|max_length[100]'
+            ],
+            [
+                'field' => 'penulis',
+                'label' => 'Penulis',
+                'rules' => 'trim|required|max_length[30]|callback_alpha_space'
+            ],
+            [
+                'field' => 'penerbit',
+                'label' => 'Penerbit',
+                'rules' => 'trim|required|max_length[30]'
+            ],
+            [
+                'field' => 'klasifikasi',
+                'label' => 'Klasifikasi',
+                'rules' => 'trim|required'
+            ],
+            [
+                'field' => 'letak',
+                'label' => 'Letak',
+                'rules' => 'trim|required|max_length[20]'
+            ],
+        ];
+
+        return $validationRules;
+    }
+
+    //Memberikan nilai default ketika pertama kali ditampilkan
+    public function getDefaultValues()
+    {
+        return [
+            'isbn' => '',
+            'judul_buku' => '',
+            'penulis' => '',
+            'penerbit' => '',
+            'klasifikasi' => '',
+            'letak' => '',
+            'cover' => '',
+
+        ];
+    }
+
+    //Upload cover
+    public function uploadCover($fieldname, $filename)
+    {
+        $config = [
+            'upload_path' => './cover/',
+            'file_name' => $filename,
+            'allowed_types' => 'jpg', //Hanya jpg saja
+            'max_size' => 1024, //1MB
+            'max_width' => 0,
+            'max_height' => 0,
+            'overwrite' => true,
+            'file_ext_tolower' => true,
+        ];
+
+        $this->load->library('upload',$config);
+        if ($this->upload->do_upload($fieldname)) {
+            // Upload OK, return uploaded file info
+            return $this->upload->data();
+        }else {
+            //Add error to $_error_array
+            $this->form_validation->add_to_error_array($fieldname,$this->upload->display_errors('',''));
+            return false;
+        }
+    }
+
+    //Mengubah ukuran cover
+    public function coverResize($fieldname, $source_path, $width, $height)
+    {
+        $config = [
+            'image_library' => 'gd2',
+            'source_image' => $source_path,
+            'maintain_ratio' => true,
+            'width' => $width,
+            'height' => $height,
+        ];
+
+        $this->load->library('image_lib',$config);
+
+        if ($this->image_lib->resize()) {
+            return true;
+        } else {
+            $this->form_validation->add_to_error_array($fieldname, $this->image_lib->display_errors('',''));
+            return false;
+        }
+    }
 }
