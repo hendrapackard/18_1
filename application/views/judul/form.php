@@ -66,7 +66,7 @@
                     <div class="col-sm-6">
                         <div class="form-group form-float">
                         <div class="form-line">
-                            <?= form_dropdown('letak',  ['' => '-- Pilih Letak --','A' => 'A','B' => 'B','C' => 'C','D' => 'D','E' => 'E','F' => 'F','G' => 'G','H' => 'H'],$input->klasifikasi , ['class' => 'form-control', 'required autofocus']) ?>
+                            <?= form_dropdown('letak',  ['' => '-- Pilih Letak --','A' => 'A','B' => 'B','C' => 'C','D' => 'D','E' => 'E','F' => 'F','G' => 'G','H' => 'H'],$input->letak , ['class' => 'form-control', 'required autofocus']) ?>
                         </div>
                         </div>
                         <?= form_error('letak') ?>
