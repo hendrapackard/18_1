@@ -26,9 +26,11 @@ class Judul extends MY_Controller
             $row[] = $judul->judul_buku;
             $row[] = $judul->penulis;
             $row[] = $judul->penerbit;
-            $row[] = $judul->jumlah_total != 0 ? anchor("buku/total/$judul->id_judul",$judul->jumlah_total) : $judul->jumlah_total;
-            $row[] = $judul->jumlah_ada != 0 ? anchor("buku/ada/$judul->id_judul",$judul->jumlah_ada) : $judul->jumlah_ada;
-            $row[] = $judul->jumlah_dipinjam != 0 ? anchor("buku/dipinjam/$judul->id_judul",$judul->jumlah_dipinjam) : $judul->jumlah_dipinjam ;
+            $row[] = "Total : " .($judul->jumlah_total != 0 ?  anchor("buku/total/$judul->id_judul",$judul->jumlah_total) : $judul->jumlah_total) .
+                     "<br>" .
+                     "Ada : " .($judul->jumlah_ada != 0 ? anchor("buku/ada/$judul->id_judul",$judul->jumlah_ada) : $judul->jumlah_ada) .
+                     "<br>" .
+                     "Dipinjam : " .($judul->jumlah_dipinjam != 0 ? anchor("buku/dipinjam/$judul->id_judul",$judul->jumlah_dipinjam) : $judul->jumlah_dipinjam) ;
 
             if($judul->cover)
                 $row[] = '<a href="'.base_url('cover/'.$judul->cover).'" target="_blank"><img src="'.base_url('cover/'.$judul->cover).'" style="border: 1px solid #aaaaaa; padding: 2px; width: 100px;" class="cover img-responsive" /></a>';
