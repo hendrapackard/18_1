@@ -95,4 +95,29 @@ class Buku_model extends MY_Model
         return $this->db->query($sql)->result();
 
     }
+
+    public function dipinjam($id_judul)
+    {
+        $sql = " SELECT buku.id_buku,
+                        label_buku,
+                        judul_buku,
+                        penulis,
+                        penerbit,
+                        nama AS peminjam,
+                        nama_kelas
+                 FROM   buku
+          INNER JOIN    judul
+                ON      (judul.id_judul = buku.id_judul)
+          INNER JOIN    peminjaman
+                ON      (peminjaman.id_buku = buku.id_buku)
+          INNER JOIN    user
+                ON      (user.id_user = peminjaman.id_user)
+          INNER JOIN    kelas
+                ON      (kelas.id_kelas = user.id_kelas)
+                WHERE   buku.id_judul = $id_judul
+                AND     buku.is_ada = 'n'
+                AND     peminjaman.status != '4'";
+
+        return $this->db->query($sql)->result();
+    }
 }

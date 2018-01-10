@@ -82,4 +82,16 @@ class Buku extends MY_Controller
         $main_view = 'buku/ada';
         $this->load->view('template',compact('main_view','bukus'));
     }
+
+    //Menampilkan buku yang dipinjam
+    public function dipinjam($id_judul = null)
+    {
+        if (is_null($id_judul)) {
+            redirect('judul');
+        }
+
+        $bukus = $this->buku->dipinjam($id_judul);
+        $main_view = 'buku/dipinjam';
+        $this->load->view('template',compact('main_view','bukus'));
+    }
 }
