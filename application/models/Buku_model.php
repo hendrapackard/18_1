@@ -62,4 +62,20 @@ class Buku_model extends MY_Model
         }
         return $data;
     }
+
+    public function total($id_judul)
+    {
+        $sql = "    SELECT id_buku,
+                           label_buku,
+                           judul_buku,
+                           penulis,
+                           penerbit,
+                           is_ada
+                    FROM buku
+                    INNER JOIN judul
+                            ON (judul.id_judul = buku.id_judul)
+                            WHERE buku.id_judul = $id_judul";
+
+        return $this->db->query($sql)->result();
+    }
 }

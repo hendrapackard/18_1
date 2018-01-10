@@ -50,6 +50,18 @@ class Buku extends MY_Controller
         redirect('judul');
     }
 
+    //Menampilkan total buku
+    public function total($id_judul = null)
+    {
+        if (is_null($id_judul)) {
+            redirect('judul');
+        }
+
+        $bukus      = $this->buku->total($id_judul);
+        $main_view  = 'buku/total';
+        $this->load->view('template',compact('main_view', 'bukus'));
+    }
+
     //Callback
     public function alpha_numeric_coma_dash_dot_space($str)
     {
