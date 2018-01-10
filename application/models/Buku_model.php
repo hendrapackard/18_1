@@ -78,4 +78,21 @@ class Buku_model extends MY_Model
 
         return $this->db->query($sql)->result();
     }
+
+    public function ada($id_judul)
+    {
+        $sql = "    SELECT id_buku,
+                           label_buku,
+                           judul_buku,
+                           penulis,
+                           penerbit
+                    FROM   buku
+                    INNER JOIN judul
+                    ON         (judul.id_judul = buku.id_judul)
+                    WHERE      buku.id_judul = $id_judul
+                    AND is_ada = 'y' ";
+
+        return $this->db->query($sql)->result();
+
+    }
 }

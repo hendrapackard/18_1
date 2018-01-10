@@ -70,4 +70,16 @@ class Buku extends MY_Controller
             return false;
         }
     }
+
+    //Menampilkan Buku yang tersedia
+    public function ada($id_judul = null)
+    {
+        if (is_null($id_judul)) {
+            redirect('judul');
+        }
+
+        $bukus = $this->buku->ada($id_judul);
+        $main_view = 'buku/ada';
+        $this->load->view('template',compact('main_view','bukus'));
+    }
 }
