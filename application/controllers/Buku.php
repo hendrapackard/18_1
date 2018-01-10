@@ -35,12 +35,16 @@ class Buku extends MY_Controller
             return;
         }
 
+        //validasi
         if (!$this->buku->validate()){
             $this->load->view('template',compact('main_view', 'form_action', 'input', 'judul'));
             return;
         }
 
+        //mendapatkan label buku dari database
         $label = $judul->klasifikasi.' '.substr($judul->penulis,0,3).' '.substr($judul->judul_buku,0,1).' '.'0001';
+
+        //insert data copy buku
         if ($this->buku->insert2($input,$label)) {
             $this->session->set_flashdata('success','Data buku berhasil disimpan');
         }else {
@@ -60,15 +64,6 @@ class Buku extends MY_Controller
         $bukus      = $this->buku->total($id_judul);
         $main_view  = 'buku/total';
         $this->load->view('template',compact('main_view', 'bukus'));
-    }
-
-    //Callback
-    public function alpha_numeric_coma_dash_dot_space($str)
-    {
-        if (!preg_match('/^[a-zA-Z0-9 .,\-]+$/i', $str)) {
-            $this->form_validation->set_message('alpha_numeric_coma_dash_dot_space','Hanya boleh berisi huruf, spasi, tanda hubung(-), titik(.) dan koma(,).');
-            return false;
-        }
     }
 
     //Menampilkan Buku yang tersedia
@@ -93,5 +88,14 @@ class Buku extends MY_Controller
         $bukus = $this->buku->dipinjam($id_judul);
         $main_view = 'buku/dipinjam';
         $this->load->view('template',compact('main_view','bukus'));
+    }
+
+    //Callback
+    public function alpha_numeric_coma_dash_dot_space($str)
+    {
+        if (!preg_match('/^[a-zA-Z0-9 .,\-]+$/i', $str)) {
+            $this->form_validation->set_message('alpha_numeric_coma_dash_dot_space','Hanya boleh berisi huruf, spasi, tanda hubung(-), titik(.) dan koma(,).');
+            return false;
+        }
     }
 }

@@ -24,6 +24,7 @@ class Buku_model extends MY_Model
         ];
     }
 
+    //Memasukkan data copy buku
     public function insert2($input,$label)
     {
         $jumlah = $input->jumlah_buku;
@@ -41,6 +42,7 @@ class Buku_model extends MY_Model
         return $this->db->affected_rows();
     }
 
+    //Membuat array label buku
     private function createLabel($no_urut,$jumlah,$prefix){
         $data =[];
         for ($i=$no_urut ;$i<$no_urut+$jumlah;$i++)
@@ -50,6 +52,7 @@ class Buku_model extends MY_Model
         return $data;
     }
 
+    //Prepare data sebelum di insert
     private function prepData($label_bukus, $id_judul)
     {
         $data = [];
@@ -63,6 +66,7 @@ class Buku_model extends MY_Model
         return $data;
     }
 
+    //query menampikan total buku
     public function total($id_judul)
     {
         $sql = "    SELECT id_buku,
@@ -79,6 +83,7 @@ class Buku_model extends MY_Model
         return $this->db->query($sql)->result();
     }
 
+    //query menampikan buku yang tersedia
     public function ada($id_judul)
     {
         $sql = "    SELECT id_buku,
@@ -96,6 +101,7 @@ class Buku_model extends MY_Model
 
     }
 
+    //query menampikan buku yang dipinjam
     public function dipinjam($id_judul)
     {
         $sql = " SELECT buku.id_buku,
