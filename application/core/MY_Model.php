@@ -78,6 +78,12 @@ class MY_Model extends CI_Model
         return $this;
     }
 
+    public function join2($table, $query  , $type = 'left')//untuk melakukan join dengan query manual
+    {
+        $this->db->join($table, $query, $type);
+        return $this;
+    }
+
     public function orderBy($kolom, $order = 'asc')//untuk mengurutkan hasil query
     {
         $this->db->order_by($kolom, $order);
