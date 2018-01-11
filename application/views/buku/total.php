@@ -19,7 +19,7 @@ $level = $this->session->userdata('level');
             <div class="body">
                 <div class="body table-responsive">
                     <?php if ($bukus) : ?>
-                        <table class="table table-bordered table-striped table-hover biasa dataTable">
+                        <table class="table table-bordered table-striped table-hover tabel-biasa">
                             <thead>
                             <tr>
                                 <th>No</th>

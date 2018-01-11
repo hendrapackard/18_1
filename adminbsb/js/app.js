@@ -55,23 +55,23 @@ $(function () {
     $('.tabel-no-search-length').DataTable({
         responsive: true,
         pageLength:5,
-        "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
+        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
         searching: false,
         "lengthChange": false
     });
     $('.tabel-biasa').DataTable({
         responsive: true,
-        "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
+        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
         "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5
     });
     $('.tabel-biasa-2').DataTable({
         responsive: true,
-        "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
+        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
         "lengthMenu": [ [2, 10, 25, -1], [2, 10, 25, "All"] ],"pageLength": 2
     });
     $('.tabel-no-sort').DataTable({
         responsive: true,
-        "language": {"url": "adminbsb/plugins/jquery-datatable/Indonesian.json"},
+        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
         "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
         sorting:false
     });

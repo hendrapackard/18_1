@@ -18,7 +18,7 @@ $is_login = $this->session->userdata('is_login');
             <div class="body">
                 <div class="body table-responsive">
                     <?php if ($bukus) : ?>
-                        <table id="tabel_biasa" class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-striped table-hover tabel-biasa">
                             <thead>
                             <tr>
                                 <th>No</th>
