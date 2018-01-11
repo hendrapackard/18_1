@@ -29,13 +29,13 @@ class Buku_model extends MY_Model
     {
         $jumlah = $input->jumlah_buku;
         $id_judul = $input->id_judul;
-        $label_buku = $this->db->select("IFNULL(MAX(label_buku),$label) AS labels", false)
+        $label_buku = $this->db->select("IFNULL(MAX(label_buku),\"$label\") AS labels", false)
                     ->where('id_judul',$id_judul)
                     ->get($this->table)->row();
 
-        $prefix = substr($label_buku->labels,'0','9');// 500 Nun B
+        $prefix = substr($label_buku->labels,'0','15');// 500 Nun B 0001-
         $no_urut = (int) substr($label_buku->labels,'-4','4'); // 0
-        $label_bukus = $this->createLabel($no_urut,$jumlah,$prefix);// 0,3,500 Nun B
+        $label_bukus = $this->createLabel($no_urut,$jumlah,$prefix);// 0,3,500 Nun B 0001-
         $data  = $this->prepData($label_bukus, $id_judul);
 
         $this->db->insert_batch('buku', $data);
@@ -45,9 +45,9 @@ class Buku_model extends MY_Model
     //Membuat array label buku
     private function createLabel($no_urut,$jumlah,$prefix){
         $data =[];
-        for ($i=$no_urut ;$i<$no_urut+$jumlah;$i++)
+        for ($i=($no_urut+1) ;$i<=($no_urut+$jumlah);$i++)
         {
-            $data [] =  $prefix.' '.sprintf("%04s", $i);//500 Nun B 0001-0003
+            $data [] =  $prefix.sprintf("%04s", $i);//500 Nun B 0001-0003
         }
         return $data;
     }

@@ -41,8 +41,11 @@ class Buku extends MY_Controller
             return;
         }
 
+        $id_judul   = (int) $this->input->post('id_judul');
+        $kode_buku  = sprintf("%04s", $id_judul);
+
         //mendapatkan label buku dari database
-        $label = $judul->klasifikasi.' '.substr($judul->penulis,0,3).' '.substr($judul->judul_buku,0,1).' '.'0001';
+        $label = $judul->klasifikasi.' '.substr($judul->penulis,0,3).' '.substr($judul->judul_buku,0,1).' '.$kode_buku.'-'.'0000';
 
         //insert data copy buku
         if ($this->buku->insert2($input,$label)) {
