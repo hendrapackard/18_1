@@ -3,9 +3,9 @@
 class User_model extends MY_Model
 {
     //Server side
-    var $column_order = array(null,'no_anggota','level','no_induk','nama','kelas.nama_kelas',null,null,null,null); //set column field database for datatable orderable
-    var $column_search = array('no_anggota','no_induk','level','nama','kelas.nama_kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = array('id_user' => 'asc'); // default order
+    private $column_order = array(null,'no_anggota','level','no_induk','nama','kelas.nama_kelas',null,null,null,null); //set column field database for datatable orderable
+    private $column_search = array('no_anggota','no_induk','level','nama','kelas.nama_kelas'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    private $order = array('id_user' => 'asc'); // default order
 
     private function _get_datatables_query()
     {
@@ -47,7 +47,7 @@ class User_model extends MY_Model
         }
     }
 
-    function get_datatables()
+    public function get_datatables()
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
@@ -56,7 +56,7 @@ class User_model extends MY_Model
         return $query->result();
     }
 
-    function count_filtered()
+    public function count_filtered()
     {
         $this->_get_datatables_query();
         $query = $this->db->get();

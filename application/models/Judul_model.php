@@ -3,9 +3,9 @@
 class Judul_model extends MY_Model
 {
     //Server side
-    var $column_order = array(null,'isbn','judul_buku','penulis','penerbit','jumlah_total','jumlah_ada','jumlah_dipinjam',null,'letak',null,null,null); //set column field database for datatable orderable
-    var $column_search = array('isbn','judul_buku','penulis','penerbit','letak'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    var $order = array('id_judul' => 'asc'); // default order
+    private $column_order = array(null,'isbn','judul_buku','penulis','penerbit','jumlah_total','jumlah_ada','jumlah_dipinjam',null,'letak',null,null,null); //set column field database for datatable orderable
+    private $column_search = array('isbn','judul_buku','penulis','penerbit','letak'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    private $order = array('id_judul' => 'asc'); // default order
 
     private function _get_datatables_query()
     {
@@ -50,7 +50,7 @@ class Judul_model extends MY_Model
         }
     }
 
-    function get_datatables()
+    public function get_datatables()
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
@@ -59,7 +59,7 @@ class Judul_model extends MY_Model
         return $query->result();
     }
 
-    function count_filtered()
+    public function count_filtered()
     {
         $this->_get_datatables_query();
         $query = $this->db->get();
