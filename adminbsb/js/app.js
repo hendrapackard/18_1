@@ -189,63 +189,6 @@ function makeHiddenIdBuku2(nilai) {
 }
 ////////////////////////////////////////////////////////////////////////////////////
 
-
-//userAutocomplete untuk anggota (Ajax)
-function userAutoComplete2() {
-    var min_length = 0;//min caracters display autocomplete
-    var keywords = $('#search_user').val();
-    if (keywords.length >= min_length) {
-        $.ajax({
-            url:'/peminjaman_user/user_auto_complete',
-            type: 'POST',
-            data:{keywords:keywords},
-            success:function (data) {
-                $('#user_list').show();
-                $('#user_list').html(data);
-            }
-        });
-    }else {
-        $('#user_list').hide();
-    }
-}
-
-//bukuAutocomplete untuk anggota (Ajax)
-function bukuAutoComplete4() {
-    var min_length = 0;//min caracters display autocomplete
-    var keywords = $('#search_buku').val();
-    if (keywords.length >= min_length) {
-        $.ajax({
-            url:'/peminjaman_user/buku_auto_complete',
-            type: 'POST',
-            data: {keywords:keywords},
-            success:function (data) {
-                $('#buku_list2').show();
-                $('#buku_list2').html(data);
-            }
-        });
-    } else {
-        $('#buku_list').hide();
-    }
-}
-
-//bukuAutocomplete untuk anggota (Ajax)
-function bukuAutoComplete3() {
-    var min_length = 0;//min caracters display autocomplete
-    var keywords = $('#search_buku2').val();
-    if (keywords.length >= min_length) {
-        $.ajax({
-            url:'/peminjaman_user/buku_auto_complete2',
-            type: 'POST',
-            data: {keywords:keywords},
-            success:function (data) {
-                $('#buku_list2').show();
-                $('#buku_list2').html(data);
-            }
-        });
-    } else {
-        $('#buku_list2').hide();
-    }
-}
 //jquery show dan hide, lalu merubah icon
 $("#input2").click(function () {
     $("#input-buku2").toggle(500);
