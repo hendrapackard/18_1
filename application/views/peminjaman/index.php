@@ -54,7 +54,7 @@ $is_login = $this->session->userdata('is_login');
                                 "serverSide" : true,
                                 "language": {
                                     "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
-                                    searchPlaceholder: "Tanggal, Jadwal Kembali, Kode Pinjam"
+                                    searchPlaceholder: "Kode Peminjaman, No Induk, Nama"
                                 },
                                 "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
                                 "order" : [],

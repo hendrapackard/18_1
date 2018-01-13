@@ -6,7 +6,7 @@ class Peminjaman_model extends MY_Model
 
     //Server side
     private $column_order = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku',null); //set column field database for datatable orderable
-    private $column_search = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    private $column_search = array('kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     private $order = array('id_pinjam' => 'desc'); // default order
 
     private function _get_datatables_query()

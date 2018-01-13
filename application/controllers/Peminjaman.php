@@ -16,8 +16,8 @@ class Peminjaman extends Admin_Controller
         $data = array();
         foreach ($list as $peminjaman) {
             $row = array();
-            $row[] = $peminjaman->tanggal_pinjam;
-            $row[] = $peminjaman->jadwal_kembali;
+            $row[] = date('d-m-Y', strtotime($peminjaman->tanggal_pinjam));
+            $row[] = date('d-m-Y', strtotime($peminjaman->jadwal_kembali));
             $row[] = $peminjaman->kode_pinjam;
             $row[] = $peminjaman->no_induk;
             $row[] = $peminjaman->nama;
