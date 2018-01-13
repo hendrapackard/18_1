@@ -78,7 +78,8 @@ $(function () {
 });
 ////////////
 
-//userAutocomplete untuk admin (Ajax)
+//Form Transaksi Peminjaman Admin
+//userAutocomplete untuk admin (Ajax) oke
 function userAutoComplete() {
     var base_url = window.location.origin;
     var min_length = 0;//min caracters display autocomplete
@@ -98,7 +99,7 @@ function userAutoComplete() {
     }
 }
 
-//bukuAutocomplete untuk admin (Ajax)
+//bukuAutocomplete untuk admin (Ajax) oke
 function bukuAutoComplete() {
     var min_length = 0;//min caracters display autocomplete
     var keywords = $('#search_buku').val();
@@ -117,8 +118,8 @@ function bukuAutoComplete() {
     }
 }
 
-//bukuAutocomplete untuk admin (Ajax)
-function bukuAutoComplete4() {
+//bukuAutocomplete untuk admin (Ajax) oke
+function bukuAutoComplete2() {
     var min_length = 0;//min caracters display autocomplete
     var keywords = $('#search_buku2').val();
     if (keywords.length >= min_length) {
@@ -135,6 +136,59 @@ function bukuAutoComplete4() {
         $('#buku_list2').hide();
     }
 }
+
+// setItem : Change the value of input when "clicked" admin oke
+function setItemUser(item) {
+    //change input value
+    $('#search_user').val(item);
+    $('#user_list').hide();
+}
+
+// setItem : Change the value of input when "clicked" admin oke
+function setItemBuku(item) {
+    //change input value
+    $('#search_buku').val(item);
+    $('#buku_list').hide();
+}
+
+// Create input "id_user" if not exist admin oke
+function makeHiddenIdUser(nilai) {
+    if ($("#id-user").length > 0) {
+        $("#id-user").attr('value',nilai);
+    } else {
+        str = '<input type="hidden" id="id-user" name="id_user" value="'+nilai+'" />';
+        $("#form-peminjaman").append(str);
+    }
+}
+
+//Create input "id_buku" if not exist admin oke
+function makeHiddenIdBuku(nilai) {
+    if ($("#id-buku1").length > 0) {
+        $("#id-buku1").attr('value',nilai);
+    } else {
+        str = '<input type="hidden" id="id-buku1" name="id_buku1" value="'+nilai+'" />';
+        $("#form-peminjaman").append(str);
+    }
+}
+
+// setItem : Change the value of input when "clicked" admin, input kedua oke
+function setItemBuku2(item) {
+    //change input value
+    $('#search_buku2').val(item);
+    $('#buku_list2').hide();
+}
+
+//Create input "id_buku" if not exist admin, input kedua oke
+function makeHiddenIdBuku2(nilai) {
+    if ($("#id-buku2").length > 0) {
+        $("#id-buku2").attr('value',nilai);
+    } else {
+        str = '<input type="hidden" id="id-buku2" name="id_buku2" value="'+nilai+'" />';
+        $("#form-peminjaman").append(str);
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////
+
 
 //userAutocomplete untuk anggota (Ajax)
 function userAutoComplete2() {
@@ -156,7 +210,7 @@ function userAutoComplete2() {
 }
 
 //bukuAutocomplete untuk anggota (Ajax)
-function bukuAutoComplete2() {
+function bukuAutoComplete4() {
     var min_length = 0;//min caracters display autocomplete
     var keywords = $('#search_buku').val();
     if (keywords.length >= min_length) {
@@ -165,14 +219,15 @@ function bukuAutoComplete2() {
             type: 'POST',
             data: {keywords:keywords},
             success:function (data) {
-                $('#buku_list').show();
-                $('#buku_list').html(data);
+                $('#buku_list2').show();
+                $('#buku_list2').html(data);
             }
         });
     } else {
         $('#buku_list').hide();
     }
 }
+
 //bukuAutocomplete untuk anggota (Ajax)
 function bukuAutoComplete3() {
     var min_length = 0;//min caracters display autocomplete
@@ -191,59 +246,9 @@ function bukuAutoComplete3() {
         $('#buku_list2').hide();
     }
 }
-
-
-// setItem : Change the value of input when "clicked"
-function setItemUser(item) {
-    //change input value
-    $('#search_user').val(item);
-    $('#user_list').hide();
-}
-
-function setItemBuku(item) {
-    //change input value
-    $('#search_buku').val(item);
-    $('#buku_list').hide();
-}
-
-function setItemBuku2(item) {
-    //change input value
-    $('#search_buku2').val(item);
-    $('#buku_list2').hide();
-}
-
-// Create input "id_user" if not exist
-function makeHiddenIdUser(nilai) {
-    if ($("#id_user").length > 0) {
-        $("#id_user").attr('value',nilai);
-    } else {
-        str = '<input type="hidden" id="id-user" name="id_user" value="'+nilai+'" />';
-        $("#form-peminjaman").append(str);
-    }
-}
-
-//Create input "id_buku" if not exist
-function makeHiddenIdBuku(nilai) {
-    if ($("#id-buku").length > 0) {
-        $("#id-buku").attr('value',nilai);
-    } else {
-        str = '<input type="hidden" id="id-buku" name="id_buku" value="'+nilai+'" />';
-        $("#form-peminjaman").append(str);
-    }
-}
-
-//Create input "id_buku" if not exist
-function makeHiddenIdBuku2(nilai) {
-    if ($("#id-buku2").length > 0) {
-        $("#id-buku2").attr('value',nilai);
-    } else {
-        str = '<input type="hidden" id="id-buku2" name="id_buku2" value="'+nilai+'" />';
-        $("#form-peminjaman").append(str);
-    }
-}
-
-//jquery show and hide
+//jquery show dan hide, lalu merubah icon
 $("#input2").click(function () {
-    $("#input-buku2").toggle();
+    $("#input-buku2").toggle(500);
+    $("i", this).html($("i", this).text() == 'remove' ? 'add' : 'remove');
 });
 

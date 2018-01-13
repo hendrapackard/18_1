@@ -2,6 +2,8 @@
 
 class Peminjaman_model extends MY_Model
 {
+    protected $maxItem = 2; //Jumlah maksimum buku
+
     //Server side
     private $column_order = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku',null); //set column field database for datatable orderable
     private $column_search = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
@@ -73,5 +75,152 @@ class Peminjaman_model extends MY_Model
         return $this->db->count_all_results();
     }
     ////////////////////////////////
+
+    //Mendapatkan aturan validasi
+    public function getValidationRules()
+    {
+        $validationRules = [
+            [
+                'field' => 'kode_pinjam',
+                'label' => 'Kode_pinjam',
+                'rules' => 'trim|required|numeric'
+            ],
+            [
+                'field' => 'tanggal_pinjam',
+                'label' => 'Tanggal_pinjam',
+                'rules' => 'trim|required'
+            ],
+            [
+                'field' => 'search_user',
+                'label' => 'User',
+                'rules' => 'trim|required'
+            ],
+            [
+                'field' => 'id_user',
+                'label' => 'ID User',
+                'rules' => 'trim|required'
+            ],
+            [
+                'field' => 'search_buku',
+                'label' => 'Judul Buku',
+                'rules' => 'trim|required'
+            ],
+            [
+                'field' => 'id_buku1',
+                'label' => 'ID Buku',
+                'rules' => 'trim|required'
+            ],
+        ];
+
+        return $validationRules;
+    }
+
+    //Memberikan nilai default ketika pertama kali ditampilkan
+    public function getDefaultValues()
+    {
+        return [
+            'kode_pinjam' => '',
+            'tanggal_pinjam' => '',
+            'jadwal_kembali' => '',
+            'id_user' => '',
+            'id_buku1' => '',
+            'id_buku2' => '',
+            'search_user' => '',
+            'search_buku' => '',
+            'search_buku2' => '',
+        ];
+    }
+
+    //Mengecheck jumlah peminjaman
+    public function cekMaxItem($id_user)
+    {
+        $sql = "SELECT COUNT(id_pinjam) AS jumlah_item
+                FROM peminjaman
+                WHERE id_user = '$id_user'
+                AND status != '4'";
+        $item = $this->db->query($sql)->row()->jumlah_item;
+
+        if ($item+1 < $this->maxItem) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //Mencari data user
+    public function liveSearchUser($keywords)
+    {
+        return $this->db->select('id_user,no_induk,nama')
+            ->like('no_induk',$keywords)
+            ->or_like('nama', $keywords)
+            ->where('is_verified','y')
+            ->limit(10)
+            ->get('user')
+            ->result();
+    }
+
+    //Mencari data buku
+    public function liveSearchBuku($keywords)
+    {
+        $sql = "    SELECT id_buku, label_buku, judul_buku
+                    FROM    buku
+                    INNER JOIN judul
+                    ON      (judul.id_judul = buku.id_judul)
+                    WHERE   is_ada = 'y'
+                    AND     judul_buku LIKE '%$keywords%'
+                    OR     label_buku LIKE '%$keywords%'
+                    LIMIT 10 ";
+        return $this->db->query($sql)->result();
+    }
+
+    //Memasukkan data ke database
+    public function insert2($input)
+    {
+        $kode_pinjam = $input->kode_pinjam;
+        $tanggal_pinjam  = $input->tanggal_pinjam;
+        $jadwal_kembali  = $input->jadwal_kembali;
+        $id_user  = $input->id_user;
+        $id_bukus = $this->arrayID($input);
+        $status  = $input->status;
+        $data  = $this->prepData($kode_pinjam,$tanggal_pinjam,$jadwal_kembali,$id_user,$id_bukus,$status);
+
+        $this->db->insert_batch('peminjaman', $data);
+        return $this->db->affected_rows();
+    }
+
+    //Membuat array id buku
+    private function arrayID($input)
+    {
+        return [
+            'id_buku1' => $input->id_buku1,
+            'id_buku2' => $input->id_buku2,
+        ];
+    }
+
+    //Persiapan data sebelum di insert
+    private function prepData($kode_pinjam,$tanggal_pinjam,$jadwal_kembali,$id_user,$id_bukus,$status)
+    {
+        $i = 0;
+        $data = [];
+        foreach($id_bukus as $id_buku) {
+
+            $data[] = [
+                'kode_pinjam'       => $kode_pinjam,
+                'tanggal_pinjam'    => $tanggal_pinjam,
+                'jadwal_kembali'    => $jadwal_kembali,
+                'id_user'           => $id_user,
+                'id_buku'           => $id_buku,
+                'status'            => $status,
+            ];
+        }
+        return $data;
+    }
+
+    //Ubah Status buku
+    public function ubahStatusBuku($id_buku, $status)
+    {
+        $this->db->where('id_buku',$id_buku);
+        $this->db->update('buku',['is_ada' => $status]);
+    }
 
 }
