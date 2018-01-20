@@ -45,29 +45,6 @@ $is_login = $this->session->userdata('is_login');
                         </div>
                     </div>
 
-                    <!--    Konfigurasi serverside-->
-                    <?php echo server_side() ?>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#serverside').DataTable({
-                                "processing" : true,
-                                "serverSide" : true,
-                                "language": {
-                                    "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
-                                    searchPlaceholder: "Kode Peminjaman, No Induk, Nama"
-                                },
-                                "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
-                                "order" : [],
-                                "ajax": {
-                                    "url" : "<?= site_url('peminjaman/ajax_list'); ?>",
-                                    "type" : "POST"
-                                },
-                                "columnDefs" : [
-                                    {
-                                        "targets" : [0],
-                                        "orderable":false,
-                                    },
-                                ],
-                            });
-                        });
+                    <script>
+                        var get_url = "<?=base_url('peminjaman');?>"; // get peminjaman url
                     </script>

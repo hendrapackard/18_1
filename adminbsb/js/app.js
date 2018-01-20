@@ -1,3 +1,26 @@
+//Konfigurasi Datatabel Serverside
+    $(document).ready(function() {
+        $('#serverside').DataTable({
+            "processing" : true,
+            "serverSide" : true,
+            "language": {
+                "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
+            },
+            "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
+            "order" : [],
+            "ajax": {
+                "url" : get_url + "/ajax_list",
+                "type" : "POST"
+            },
+            "columnDefs" : [
+                {
+                    "targets" : [0],
+                    "orderable":false,
+                },
+            ],
+        });
+    });
+
 //Membuat animasi fadeout selama 5 dtk untuk notifikasi
 $(".alert").delay(3000).fadeOut(500);
 

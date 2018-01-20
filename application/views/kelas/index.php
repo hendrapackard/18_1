@@ -43,30 +43,6 @@
         </div>
     </div>
 
-<!--    Konfigurasi serverside-->
-    <?php echo server_side() ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#serverside').DataTable({
-                "processing" : true,
-                "serverSide" : true,
-                "language": {
-                    "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
-                    searchPlaceholder: "Nama Kelas"
-                },
-                "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
-                "order" : [],
-                "ajax": {
-                    "url" : "<?= site_url('kelas/ajax_list'); ?>",
-                    "type" : "POST"
-                },
-                "columnDefs" : [
-                    {
-                        "targets" : [0],
-                        "orderable":false,
-                    },
-                ],
-            });
-        });
+    <script>
+        var get_url = "<?=base_url('kelas');?>"; // get kelas url
     </script>
-

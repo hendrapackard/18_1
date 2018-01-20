@@ -59,29 +59,6 @@ $level = $this->session->userdata('level');
         </div>
     </div>
 
-    <!--    Konfigurasi serverside-->
-    <?php echo server_side() ?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#serverside').DataTable({
-                "processing" : true,
-                "serverSide" : true,
-                "language": {
-                    "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
-                    searchPlaceholder: "ISBN, Judul, Penulis, Penerbit"
-                },
-                "lengthMenu": [ [2, 10, 25, -1], [2, 10, 25, "All"] ],"pageLength": 2,
-                "order" : [],
-                "ajax": {
-                    "url" : "<?= site_url('judul/ajax_list'); ?>",
-                    "type" : "POST"
-                },
-                "columnDefs" : [
-                    {
-                        "targets" : [0],
-                        "orderable":false,
-                    },
-                ],
-            });
-        });
+    <script>
+        var get_url = "<?=base_url('judul');?>"; // get user url
     </script>

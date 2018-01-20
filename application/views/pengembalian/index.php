@@ -31,29 +31,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <!--    Konfigurasi serverside-->
-                        <?php echo server_side() ?>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#serverside').DataTable({
-                                    "processing" : true,
-                                    "serverSide" : true,
-                                    "language": {
-                                        "url": "adminbsb/plugins/jquery-datatable/Indonesian.json",
-                                        searchPlaceholder: "No Anggota, Nama, Label Buku"
-                                    },
-                                    "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
-                                    "order" : [],
-                                    "ajax": {
-                                        "url" : "<?= site_url('pengembalian/ajax_list'); ?>",
-                                        "type" : "POST"
-                                    },
-                                    "columnDefs" : [
-                                        {
-                                            "targets" : [0],
-                                            "orderable":false,
-                                        },
-                                    ],
-                                });
-                            });
+
+                        <script>
+                            var get_url = "<?=base_url('pengembalian');?>"; // get pengembalian url
                         </script>
