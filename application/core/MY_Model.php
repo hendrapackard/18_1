@@ -27,7 +27,6 @@ class MY_Model extends CI_Model
         return $this->db->get($this->table)->result();//untuk mendapatkan query yang menghasilkan multiple record
     }
 
-
     public function select($columns)//untuk memilih kolom pada tabel yang ingin ditampilkan datanya
     {
         $this->db->select($columns);
@@ -89,5 +88,29 @@ class MY_Model extends CI_Model
         $this->db->order_by($kolom, $order);
         return $this;
     }
+
+    //Datatable Serverside
+    public function get_datatables()
+    {
+        $this->_get_datatables_query();
+        if($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered()
+    {
+        $this->_get_datatables_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all()
+    {
+        $this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
+    //////////////////
 
 }

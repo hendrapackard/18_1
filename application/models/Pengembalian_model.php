@@ -7,11 +7,11 @@ class Pengembalian_model extends MY_Model
     protected $dendaPerHari = 500;// Denda
 
     //Server side
-    private $column_order = array('tanggal_pinjam','jadwal_kembali','no_anggota','nama','nama_kelas','label_buku',null,null); //set column field database for datatable orderable
-    private $column_search = array('no_anggota','nama','nama_kelas','label_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    private $order = array('id_pinjam' => 'desc'); // default order
+    protected $column_order = array('tanggal_pinjam','jadwal_kembali','no_anggota','nama','nama_kelas','label_buku',null,null); //set column field database for datatable orderable
+    protected $column_search = array('no_anggota','nama','nama_kelas','label_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    protected $order = array('id_pinjam' => 'desc'); // default order
 
-    private function _get_datatables_query()
+    protected function _get_datatables_query()
     {
         $currentDate = (string) date('Y-m-d');
 
@@ -57,28 +57,6 @@ class Pengembalian_model extends MY_Model
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         }
-    }
-
-    public function get_datatables()
-    {
-        $this->_get_datatables_query();
-        if($_POST['length'] != -1)
-            $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    public function count_filtered()
-    {
-        $this->_get_datatables_query();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-
-    public function count_all()
-    {
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
     }
     ////////////////////////////////
 

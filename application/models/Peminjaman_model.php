@@ -5,11 +5,11 @@ class Peminjaman_model extends MY_Model
     protected $maxItem = 2; //Jumlah maksimum buku
 
     //Server side
-    private $column_order = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku',null); //set column field database for datatable orderable
-    private $column_search = array('kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-    private $order = array('id_pinjam' => 'desc'); // default order
+    protected $column_order = array('tanggal_pinjam','jadwal_kembali','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku',null); //set column field database for datatable orderable
+    protected $column_search = array('kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    protected $order = array('id_pinjam' => 'desc'); // default order
 
-    private function _get_datatables_query()
+    protected function _get_datatables_query()
     {
 
         $this->db->select('id_pinjam,kode_pinjam,tanggal_pinjam,jadwal_kembali,no_induk,nama,nama_kelas,label_buku,judul_buku,status')
@@ -51,28 +51,6 @@ class Peminjaman_model extends MY_Model
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         }
-    }
-
-    public function get_datatables()
-    {
-        $this->_get_datatables_query();
-        if($_POST['length'] != -1)
-            $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    public function count_filtered()
-    {
-        $this->_get_datatables_query();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-
-    public function count_all()
-    {
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
     }
     ////////////////////////////////
 
