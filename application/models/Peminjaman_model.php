@@ -162,15 +162,14 @@ class Peminjaman_model extends MY_Model
     //Mencari data buku
     public function liveSearchBuku($keywords)
     {
-        $sql = "    SELECT id_buku, label_buku, judul_buku
-                    FROM    buku
-                    INNER JOIN judul
-                    ON      (judul.id_judul = buku.id_judul)
-                    WHERE   is_ada = 'y'
-                    AND     judul_buku LIKE '%$keywords%'
-                    OR     label_buku LIKE '%$keywords%'
-                    LIMIT 10 ";
-        return $this->db->query($sql)->result();
+        return $this->db->select('id_buku,label_buku,judul_buku')
+                        ->join('judul','judul.id_judul = buku.id_judul')
+                        ->where('is_ada','y')
+                        ->like('judul_buku',"$keywords")
+                        ->or_like('label_buku',"$keywords")
+                        ->limit(10)
+                        ->get('buku')
+                        ->result();
     }
 
     //Memasukkan data ke database

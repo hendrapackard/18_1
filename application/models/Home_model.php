@@ -4,71 +4,62 @@ class Home_model extends MY_Model
 {
     public function grafikKelas()
     {
-        $sql = "SELECT  nama_kelas AS kelas ,
-                        tanggal_pinjam,
-                COUNT(nama_kelas) AS jumlah
-                FROM   peminjaman
-                INNER JOIN   user
-                ON            (peminjaman.id_user = user.id_user)
-                INNER JOIN    kelas
-                ON            (user.id_kelas = kelas.id_kelas)
-                WHERE year(tanggal_pinjam) = year(curdate())
-                GROUP BY nama_kelas
-                ";
-
-        return $this->db->query($sql)->result();
+        return $this->db->select('nama_kelas AS kelas',false)
+                        ->select('tanggal_pinjam')
+                        ->select('COUNT(nama_kelas) AS jumlah',false)
+                        ->join('user','peminjaman.id_user = user.id_user')
+                        ->join('kelas','user.id_kelas = kelas.id_kelas')
+                        ->where("year(tanggal_pinjam) = year(curdate())")
+                        ->group_by('nama_kelas')
+                        ->get('peminjaman')
+                        ->result();
     }
 
     public function grafikBuku()
     {
-        $sql = "SELECT judul_buku as judul,
-                count(judul_buku) AS jumlah
-                FROM   peminjaman
-                INNER JOIN   user
-                ON            (peminjaman.id_user = user.id_user)
-                INNER JOIN    kelas
-                ON            (user.id_kelas = kelas.id_kelas)
-                INNER JOIN    buku
-                ON            (buku.id_buku = peminjaman.id_buku)
-                INNER JOIN    judul
-                ON            (buku.id_judul = judul.id_judul)
-                AND           (peminjaman.id_buku = buku.id_buku)
-                WHERE year(tanggal_pinjam) = year(curdate())
-                GROUP BY judul_buku
-                ORDER BY jumlah DESC LIMIT 10";
-
-        return $this->db->query($sql)->result();
+        return $this->db->select('judul_buku AS judul',false)
+                        ->select('COUNT(judul_buku) AS jumlah',false)
+                        ->join('user','peminjaman.id_user = user.id_user')
+                        ->join('kelas','user.id_kelas = kelas.id_kelas')
+                        ->join('buku','buku.id_buku = peminjaman.id_buku')
+                        ->join('judul','buku.id_judul = judul.id_judul')
+                        ->where("year(tanggal_pinjam) = year(curdate())")
+                        ->group_by('judul_buku')
+                        ->order_by('jumlah','DESC')
+                        ->limit(10)
+                        ->get('peminjaman')
+                        ->result();
     }
 
     public function getAllAnggotaCount()
     {
-        $sql = "SELECT COUNT(user.id_user) AS jmlAnggota 
-                FROM user 
-                WHERE user.level = 'anggota' 
-                AND user.is_verified ='y'";
-        return $this->db->query($sql)->row();
+        return $this->db->select('COUNT(user.id_user) AS jmlAnggota',false)
+                        ->where('user.level','anggota')
+                        ->where('user.is_verified','y')
+                        ->get('user')
+                        ->row();
     }
 
     public function getAllJudulCount()
     {
-        $sql = "SELECT COUNT(judul.id_judul) AS jmlJudul 
-                FROM judul";
-        return $this->db->query($sql)->row();
+        return $this->db->select('count(judul.id_judul) as jmlJudul',false)
+                        ->get('judul')
+                        ->row();
     }
 
     public function getAllBukuCount()
     {
-        $sql = "SELECT COUNT(buku.id_judul) AS jmlBuku 
-                FROM buku";
-        return $this->db->query($sql)->row();
+        return $this->db->select('count(buku.id_judul) as jmlBuku',false)
+                        ->get('buku')
+                        ->row();
     }
 
     public function getAllKembaliCount()
     {
-        $sql = "SELECT COUNT(peminjaman.id_pinjam) AS jmlKembali 
-                FROM peminjaman 
-                WHERE (peminjaman.status = '2') 
-                OR (peminjaman.status = '3')";
-        return $this->db->query($sql)->row();
+        return $this->db->select('count(peminjaman.id_pinjam) as jmlKembali',false)
+                        ->where('peminjaman.status','2')
+                        ->or_where('peminjaman.status','3')
+                        ->get('peminjaman')
+                        ->row();
     }
 }

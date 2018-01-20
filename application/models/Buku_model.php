@@ -69,61 +69,37 @@ class Buku_model extends MY_Model
     //query menampikan total buku
     public function total($id_judul)
     {
-        $sql = "    SELECT id_buku,
-                           label_buku,
-                           judul_buku,
-                           penulis,
-                           penerbit,
-                           is_ada
-                    FROM buku
-                    INNER JOIN judul
-                            ON (judul.id_judul = buku.id_judul)
-                            WHERE buku.id_judul = $id_judul";
-
-        return $this->db->query($sql)->result();
+        return $this->db->select('id_buku,label_buku,judul_buku,penulis,penerbit,is_ada')
+            ->join('judul','buku.id_judul = judul.id_judul')
+            ->where("buku.id_judul = $id_judul")
+            ->get('buku')
+            ->result();
     }
 
     //query menampikan buku yang tersedia
     public function ada($id_judul)
     {
-        $sql = "    SELECT id_buku,
-                           label_buku,
-                           judul_buku,
-                           penulis,
-                           penerbit
-                    FROM   buku
-                    INNER JOIN judul
-                    ON         (judul.id_judul = buku.id_judul)
-                    WHERE      buku.id_judul = $id_judul
-                    AND is_ada = 'y' ";
-
-        return $this->db->query($sql)->result();
-
+        return $this->db->select('id_buku,label_buku,judul_buku,penulis,penerbit')
+            ->join('judul','buku.id_judul = judul.id_judul')
+            ->where("buku.id_judul = $id_judul")
+            ->where("is_ada",'y')
+            ->get('buku')
+            ->result();
     }
 
     //query menampikan buku yang dipinjam
     public function dipinjam($id_judul)
     {
-        $sql = " SELECT buku.id_buku,
-                        label_buku,
-                        judul_buku,
-                        penulis,
-                        penerbit,
-                        nama AS peminjam,
-                        nama_kelas
-                 FROM   buku
-          INNER JOIN    judul
-                ON      (judul.id_judul = buku.id_judul)
-          INNER JOIN    peminjaman
-                ON      (peminjaman.id_buku = buku.id_buku)
-          INNER JOIN    user
-                ON      (user.id_user = peminjaman.id_user)
-          INNER JOIN    kelas
-                ON      (kelas.id_kelas = user.id_kelas)
-                WHERE   buku.id_judul = $id_judul
-                AND     buku.is_ada = 'n'
-                AND     peminjaman.status != '4'";
-
-        return $this->db->query($sql)->result();
+        return $this->db->select('buku.id_buku,label_buku,judul_buku,penulis,penerbit,nama_kelas')
+            ->select('nama AS peminjam',false)
+            ->join('judul','buku.id_judul = judul.id_judul')
+            ->join('peminjaman','peminjaman.id_buku = buku.id_buku')
+            ->join('user','user.id_user = peminjaman.id_user')
+            ->join('kelas','kelas.id_kelas = user.id_kelas')
+            ->where("buku.id_judul = $id_judul")
+            ->where("is_ada",'n')
+            ->where("peminjaman.status !=",'4')
+            ->get('buku')
+            ->result();
     }
 }
