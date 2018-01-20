@@ -122,7 +122,6 @@
 <!-- Demo Js -->
 <script src="<?= base_url();?>adminbsb/js/demo.js"></script>
 <script src="<?= base_url();?>adminbsb/js/pages/ui/tooltips-popovers.js"></script>
-<script src="<?= base_url();?>adminbsb/js/app.js"></script>
 
 <!-- Konfigurasi Grafik Js -->
 <script type="text/javascript">
@@ -220,6 +219,8 @@
         });
     });
 </script>
+
+<script src="<?= base_url();?>adminbsb/js/app.js"></script>
 
 </body>
 
