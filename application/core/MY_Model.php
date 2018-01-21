@@ -12,36 +12,14 @@ class MY_Model extends CI_Model
         }
     }
 
-    public function query($sql)
-    {
-        return $this->db->query($sql);//method untuk menjalankan query biasa
-    }
-
     public function get()
     {
         return $this->db->get($this->table)->row();//untuk mendapatkan query yang menghasilkan satu baris data
     }
 
-    public function getAll()
-    {
-        return $this->db->get($this->table)->result();//untuk mendapatkan query yang menghasilkan multiple record
-    }
-
-    public function select($columns)//untuk memilih kolom pada tabel yang ingin ditampilkan datanya
-    {
-        $this->db->select($columns);
-        return $this;
-    }
-
     public function where($column, $condition)//untuk menambahkan where pada query
     {
         $this->db->where($column, $condition);
-        return $this;
-    }
-
-    public function orLike($column, $condition)//untuk menambahkan OR... LIKE pada query
-    {
-        $this->db->or_like($column,$condition);
         return $this;
     }
 
@@ -69,24 +47,6 @@ class MY_Model extends CI_Model
     {
         $this->db->delete($this->table);
         return $this->db->affected_rows();
-    }
-
-    public function join($table, $type = 'left')//untuk melakukan join dengan tabel lain
-    {
-        $this->db->join($table, "$this->table.id_$table = $table.id_$table", $type);
-        return $this;
-    }
-
-    public function join2($table, $query  , $type = 'left')//untuk melakukan join dengan query manual
-    {
-        $this->db->join($table, $query, $type);
-        return $this;
-    }
-
-    public function orderBy($kolom, $order = 'asc')//untuk mengurutkan hasil query
-    {
-        $this->db->order_by($kolom, $order);
-        return $this;
     }
 
     //Datatable Serverside
