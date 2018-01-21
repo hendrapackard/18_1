@@ -103,3 +103,9 @@
 
                 <?= form_close() ?>
 
+                <script>
+                    //konfigurasi untuk app.js
+                    var get_url_user = "<?=base_url('/peminjaman/user_auto_complete');?>"; // get url user
+                    var get_url_buku = "<?=base_url('/peminjaman/buku_auto_complete');?>"; // get url buku
+                    var get_url_buku2 = "<?=base_url('/peminjaman/buku_auto_complete2');?>"; // get url buku2
+                </script>

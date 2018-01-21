@@ -60,5 +60,5 @@ $level = $this->session->userdata('level');
     </div>
 
     <script>
-        var get_url = "<?=base_url('judul');?>"; // get user url
+        var get_url = "<?=base_url('judul');?>"; // get judul url
     </script>

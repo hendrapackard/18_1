@@ -1,5 +1,32 @@
-//Konfigurasi Datatabel Serverside
+//Konfigurasi Datatabel
     $(document).ready(function() {
+        //datatable biasa
+        $('.tabel-no-search-length').DataTable({
+            responsive: true,
+            pageLength:5,
+            "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
+            searching: false,
+            "lengthChange": false
+        });
+        $('.tabel-biasa').DataTable({
+            responsive: true,
+            "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
+            "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5
+        });
+        $('.tabel-biasa-2').DataTable({
+            responsive: true,
+            "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
+            "lengthMenu": [ [2, 10, 25, -1], [2, 10, 25, "All"] ],"pageLength": 2
+        });
+        $('.tabel-no-sort').DataTable({
+            responsive: true,
+            "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
+            "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
+            sorting:false
+        });
+        //
+
+        //server side
         $('#serverside').DataTable({
             "processing" : true,
             "serverSide" : true,
@@ -19,6 +46,8 @@
                 },
             ],
         });
+        ///
+
     });
 
 //Membuat animasi fadeout selama 5 dtk untuk notifikasi
@@ -73,34 +102,6 @@ $(function() {
 });
 ////////////
 
-//datatable
-$(function () {
-    $('.tabel-no-search-length').DataTable({
-        responsive: true,
-        pageLength:5,
-        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
-        searching: false,
-        "lengthChange": false
-    });
-    $('.tabel-biasa').DataTable({
-        responsive: true,
-        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
-        "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5
-    });
-    $('.tabel-biasa-2').DataTable({
-        responsive: true,
-        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
-        "lengthMenu": [ [2, 10, 25, -1], [2, 10, 25, "All"] ],"pageLength": 2
-    });
-    $('.tabel-no-sort').DataTable({
-        responsive: true,
-        "language": {"url": "/adminbsb/plugins/jquery-datatable/Indonesian.json"},
-        "lengthMenu": [ [5, 10, 25, -1], [5, 10, 25, "All"] ],"pageLength": 5,
-        sorting:false
-    });
-});
-////////////
-
 //Form Transaksi Peminjaman Admin
 //userAutocomplete untuk admin (Ajax) oke
 function userAutoComplete() {
@@ -109,7 +110,7 @@ function userAutoComplete() {
     var keywords = $('#search_user').val();
     if (keywords.length >= min_length) {
         $.ajax({
-            url:'/peminjaman/user_auto_complete',
+            url:get_url_user,
             type: 'POST',
             data:{keywords:keywords},
             success:function (data) {
@@ -122,56 +123,11 @@ function userAutoComplete() {
     }
 }
 
-//bukuAutocomplete untuk admin (Ajax) oke
-function bukuAutoComplete() {
-    var min_length = 0;//min caracters display autocomplete
-    var keywords = $('#search_buku').val();
-    if (keywords.length >= min_length) {
-        $.ajax({
-            url:'/peminjaman/buku_auto_complete',
-            type: 'POST',
-            data: {keywords:keywords},
-            success:function (data) {
-                $('#buku_list').show();
-                $('#buku_list').html(data);
-            }
-        });
-    } else {
-        $('#buku_list').hide();
-    }
-}
-
-//bukuAutocomplete untuk admin (Ajax) oke
-function bukuAutoComplete2() {
-    var min_length = 0;//min caracters display autocomplete
-    var keywords = $('#search_buku2').val();
-    if (keywords.length >= min_length) {
-        $.ajax({
-            url:'/peminjaman/buku_auto_complete2',
-            type: 'POST',
-            data: {keywords:keywords},
-            success:function (data) {
-                $('#buku_list2').show();
-                $('#buku_list2').html(data);
-            }
-        });
-    } else {
-        $('#buku_list2').hide();
-    }
-}
-
 // setItem : Change the value of input when "clicked" admin oke
 function setItemUser(item) {
     //change input value
     $('#search_user').val(item);
     $('#user_list').hide();
-}
-
-// setItem : Change the value of input when "clicked" admin oke
-function setItemBuku(item) {
-    //change input value
-    $('#search_buku').val(item);
-    $('#buku_list').hide();
 }
 
 // Create input "id_user" if not exist admin oke
@@ -184,6 +140,32 @@ function makeHiddenIdUser(nilai) {
     }
 }
 
+//bukuAutocomplete untuk admin (Ajax) oke
+function bukuAutoComplete() {
+    var min_length = 0;//min caracters display autocomplete
+    var keywords = $('#search_buku').val();
+    if (keywords.length >= min_length) {
+        $.ajax({
+            url:get_url_buku,
+            type: 'POST',
+            data: {keywords:keywords},
+            success:function (data) {
+                $('#buku_list').show();
+                $('#buku_list').html(data);
+            }
+        });
+    } else {
+        $('#buku_list').hide();
+    }
+}
+
+// setItem : Change the value of input when "clicked" admin oke
+function setItemBuku(item) {
+    //change input value
+    $('#search_buku').val(item);
+    $('#buku_list').hide();
+}
+
 //Create input "id_buku" if not exist admin oke
 function makeHiddenIdBuku(nilai) {
     if ($("#id-buku1").length > 0) {
@@ -191,6 +173,25 @@ function makeHiddenIdBuku(nilai) {
     } else {
         str = '<input type="hidden" id="id-buku1" name="id_buku1" value="'+nilai+'" />';
         $("#form-peminjaman").append(str);
+    }
+}
+
+//bukuAutocomplete untuk admin (Ajax) oke
+function bukuAutoComplete2() {
+    var min_length = 0;//min caracters display autocomplete
+    var keywords = $('#search_buku2').val();
+    if (keywords.length >= min_length) {
+        $.ajax({
+            url:get_url_buku2,
+            type: 'POST',
+            data: {keywords:keywords},
+            success:function (data) {
+                $('#buku_list2').show();
+                $('#buku_list2').html(data);
+            }
+        });
+    } else {
+        $('#buku_list2').hide();
     }
 }
 
