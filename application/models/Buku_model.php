@@ -24,6 +24,17 @@ class Buku_model extends MY_Model
         ];
     }
 
+    //Query mendapatkan data judul
+    public function getJudul($id_judul)
+    {
+        return $this->db->select('judul.isbn,label_buku,judul_buku,penulis,penerbit,klasifikasi,letak,cover')
+            ->join('buku','buku.id_judul=judul.id_judul')
+            ->where('judul.id_judul',$id_judul)
+            ->order_by('label_buku','DESC')
+            ->get('judul')
+            ->row();
+    }
+
     //Memasukkan data copy buku
     public function insert2($input,$label)
     {

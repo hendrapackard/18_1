@@ -17,14 +17,8 @@ class Buku extends MY_Controller
     {
         $this->isLogin();
 
-        $this->load->model('Judul_model','judul',true);
-
         $id_judul   = $this->input->post('id_judul');
-        $judul      =  $this->judul->select('judul.isbn,label_buku,judul_buku,penulis,penerbit,klasifikasi,letak,cover')
-                        ->where('judul.id_judul',$id_judul)
-                        ->join2('buku','buku.id_judul=judul.id_judul')
-                        ->orderBy('label_buku','DESC')
-                        ->get();
+        $judul      = $this->buku->getJudul($id_judul);
         $input      = (object) $this->input->post(null,true);
         $main_view  = 'buku/form';
         $form_action= 'buku/create';
