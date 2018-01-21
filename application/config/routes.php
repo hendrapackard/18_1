@@ -53,5 +53,8 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['logout'] = 'login/logout';
+$route['laporan-buku'] = 'laporan_buku/index';
+$route['cetak-laporan-buku'] = 'laporan_buku/cetak_laporan_buku';
+
 
 
