@@ -29,7 +29,7 @@
 <body class="login-page">
 <div class="login-box">
     <div class="logo">
-        <a href="<?= base_url() ?>">Aplikasi</a>
+        <a href="<?= base_url() ?>">Aplikasi <strong>Perpustakaan</strong></a>
         <img src="<?= base_url();?>adminbsb/images/logo.png" class="img-circle center-block" height="110px">
     </div>
     <?php $this->load->view('_partial/flash_message') ?>
@@ -81,12 +81,8 @@
 <!-- Waves Effect Plugin Js -->
 <script src="<?= base_url();?>adminbsb/plugins/node-waves/waves.js"></script>
 
-<!-- Validation Plugin Js -->
-<script src="<?= base_url();?>adminbsb/plugins/jquery-validation/jquery.validate.js"></script>
-
 <!-- Custom Js -->
 <script src="<?= base_url();?>adminbsb/js/admin.js"></script>
-<script src="<?= base_url();?>adminbsb/js/pages/examples/sign-in.js"></script>
 </body>
 
 </html>

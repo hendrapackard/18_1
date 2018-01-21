@@ -50,6 +50,17 @@
 
     });
 
+//konfigurasi tooltip-popovers
+$(function () {
+    //Tooltip
+    $('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+    });
+
+    //Popover
+    $('[data-toggle="popover"]').popover();
+});
+
 //Membuat animasi fadeout selama 5 dtk untuk notifikasi
 $(".alert").delay(3000).fadeOut(500);
 
