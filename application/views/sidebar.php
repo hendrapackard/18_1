@@ -215,7 +215,7 @@ $foto = $this->session->userdata('foto');
     <!-- Footer -->
     <div class="legal">
         <div class="copyright">
-            &copy; 2018 <a href="javascript:void(0);">SMAN 2 Cileungsi</a>
+            &copy; <?= date('Y') ?> <a href="javascript:void(0);">SMAN 2 Cileungsi</a>
         </div>
         <div class="version">
             <b>Designed by</b> <a href="http://hendrandroid10@gmail.com"> Hendra</a>. ({elapsed_time} seconds)
