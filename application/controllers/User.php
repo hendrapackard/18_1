@@ -61,14 +61,14 @@ class User extends Admin_Controller
         if (!empty($_FILES) && $_FILES['foto']['size'] > 0) {
 
             $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $fotoFileName = $no_induk; //Cover file name
             $upload = $this->user->uploadFoto('foto',$fotoFileName);
 
             if ($upload) {
                 $input->foto = "$fotoFileName.jpg";
 
         //Resize Foto
-                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",100,150);
+                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",400,400);
             }
         }
 
@@ -118,13 +118,13 @@ class User extends Admin_Controller
         if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
             //upload new cover (if any)
             $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $fotoFileName = $no_induk; //Cover file name
             $upload = $this->user->uploadFoto('foto', $fotoFileName);
 
         //Resize to 100x150px
             if ($upload) {
                 $input->foto = "$fotoFileName.jpg";
-                $this->user->fotoResize('foto', "./foto/$fotoFileName.jpg",100,150);
+                $this->user->fotoResize('foto', "./foto/$fotoFileName.jpg",400,400);
 
         //Delete old foto
                 if ($user->foto) {

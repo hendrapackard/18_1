@@ -135,7 +135,7 @@
                         <div class="col-sm-6 right">
                             <div class="form-group form-float">
                             <div class="form-line">
-                                <img src="<?= site_url("/foto/$input->foto") ?>" alt="<?= $input->no_induk ?>" class="img-responsive">
+                                <img src="<?= site_url("/foto/$input->foto") ?>" alt="<?= $input->no_induk ?>" class="cover_border img-responsive">
                                 </div>
                             </div>
                         </div>

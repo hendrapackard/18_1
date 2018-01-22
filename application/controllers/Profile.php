@@ -36,7 +36,7 @@ class Profile extends Anggota_Controller
         if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
             //upload new cover (if any)
             $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $fotoFileName = $no_induk; //Cover file name
             $upload = $this->profile->uploadFoto('foto', $fotoFileName);
 
             if ($upload) {
