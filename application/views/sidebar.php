@@ -104,7 +104,7 @@ $foto = $this->session->userdata('foto');
 
             <?php if ($level === 'anggota'): ?>
                 <li>
-                    <?= anchor('pengembalian-user','Pengembalian',['class' => 'klik']) ?>
+                    <?= anchor('pengembalian-anggota','Pengembalian',['class' => 'klik']) ?>
                 </li>
             <?php endif ?>
 

@@ -55,21 +55,13 @@ class Peminjaman_anggota_model extends MY_Model
         }
     }
 
-    public function get_datatables_a($id_user)
+
+    public function count_all_pinjam($id_user)
     {
-        $this->_get_datatables_query($id_user);
-        if($_POST['length'] != -1)
-            $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
-        return $query->result();
+        $this->db->from($this->table)->where('id_user',$id_user);
+        return $this->db->count_all_results();
     }
 
-    public function count_filtered_a($id_user)
-    {
-        $this->_get_datatables_query($id_user);
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
     ////////////////////////////////
 
     //Mendapatkan aturan validasi

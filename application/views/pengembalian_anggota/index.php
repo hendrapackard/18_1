@@ -1,4 +1,4 @@
-    <!--flash message-->
+<!--flash message-->
 <?php $this->load->view('_partial/flash_message') ?>
 
     <div class="row clearfix">
@@ -31,5 +31,5 @@
                         </table>
 
                         <script>
-                            var get_url = "<?=base_url('pengembalian');?>"; // get pengembalian url
+                            var get_url = "<?=base_url('pengembalian_anggota');?>"; // get pengembalian url
                         </script>

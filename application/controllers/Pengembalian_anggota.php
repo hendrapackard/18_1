@@ -1,19 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pengembalian extends Admin_Controller
+class Pengembalian_anggota extends Anggota_Controller
 {
     //Menampilkan Data Pengembalian Buku
     public function index()
     {
-        $main_view  = 'pengembalian/index';
-        $form_action = 'pengembalian';
-        $this->load->view('template',compact('main_view','form_action'));
+        $main_view  = 'pengembalian_anggota/index';
+        $this->load->view('template',compact('main_view'));
     }
 
     //Datatable serverside
     public function ajax_list()
     {
-        $list = $this->pengembalian->get_datatables();
+        $id_user = $this->session->userdata('id_user');
+        $list = $this->pengembalian_anggota->get_datatables_a($id_user);
         $data = array();
         foreach ($list as $pengembalian) {
             $row = array();
@@ -24,9 +24,8 @@ class Pengembalian extends Admin_Controller
             $row[] = $pengembalian->nama_kelas;
             $row[] = $pengembalian->label_buku;
             $row[] = 'Rp. '.number_format($pengembalian->denda,0,',','.');
-            $row[] = form_open("pengembalian/kembalikan")
+            $row[] = form_open("pengembalian_anggota/kembalikan")
                     .form_hidden('id_pinjam',$pengembalian->id_pinjam)
-                    .form_hidden('denda',$pengembalian->denda)
                     .form_button(['type' => 'submit','content' => 'Kembalikan', 'class' => 'btn btn-warning waves-effect','data-toggle' => 'tooltip', 'data-placement' => 'bottom' ,'title' => 'Kembalikan','onclick' => "return confirm('Anda yakin akan mengembalikan buku?')"])
                     .form_close();
             $data[] = $row;
@@ -34,29 +33,25 @@ class Pengembalian extends Admin_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->pengembalian->count_all(),
-            "recordsFiltered" => $this->pengembalian->count_filtered(),
+            "recordsTotal" => $this->pengembalian_anggota->count_all_kembali($id_user),
+            "recordsFiltered" => $this->pengembalian_anggota->count_filtered_a($id_user),
             "data" => $data,
         );
         //output to json format
         echo json_encode($output);
     }
+    //////////////////////////
 
     //Untuk mengembalikan buku
     public function kembalikan()
     {
         $id_pinjam = $this->input->post('id_pinjam');
-        $denda      = $this->input->post('denda');
 
         //Kembalikan
-        $this->pengembalian->kembalikan($id_pinjam,$denda);
+        $this->pengembalian_anggota->kembalikan($id_pinjam);
 
-        //Set buku is ada =y
-        $peminjaman = $this->pengembalian->where('id_pinjam',$id_pinjam)->get();
-        $this->pengembalian->ubahStatusBuku($peminjaman->id_buku);
-
-        $this->session->set_flashdata('success','Buku sudah dikembalikan');
-        redirect('pengembalian');
+        $this->session->set_flashdata('success','Pengembalian Buku Berhasil Diajukan');
+        redirect('pengembalian-anggota');
     }
 
 }

@@ -73,4 +73,21 @@ class MY_Model extends CI_Model
     }
     //////////////////
 
+    //Datatable Serverside untuk anggota
+    public function get_datatables_a($id_user)
+    {
+        $this->_get_datatables_query($id_user);
+        if($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_a($id_user)
+    {
+        $this->_get_datatables_query($id_user);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
 }

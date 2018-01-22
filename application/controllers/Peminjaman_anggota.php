@@ -31,7 +31,7 @@ class Peminjaman_anggota extends Anggota_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->peminjaman_anggota->count_all(),
+            "recordsTotal" => $this->peminjaman_anggota->count_all_pinjam($id_user),
             "recordsFiltered" => $this->peminjaman_anggota->count_filtered_a($id_user),
             "data" => $data,
         );
