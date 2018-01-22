@@ -92,7 +92,7 @@ $foto = $this->session->userdata('foto');
             <ul class="ml-menu">
             <?php if ($level === 'anggota'): ?>
                 <li>
-                    <?= anchor('peminjaman-user','Peminjaman',['class' => 'klik']) ?>
+                    <?= anchor('peminjaman-anggota','Peminjaman',['class' => 'klik']) ?>
                 </li>
             <?php endif ?>
             <?php if ($level === 'admin'): ?>
