@@ -19,6 +19,7 @@ class Laporan_peminjaman extends Admin_Controller
         $this->load->view('template', compact( 'main_view', 'input', 'peminjamans', 'first_load', 'form_action'));
     }
 
+    //Cetak Laporan Peminjaman
     public function cetak_laporan_peminjaman($tanggal_awal, $tanggal_akhir)
     {
         $peminjamans  = $this->laporan_peminjaman->laporanPeminjaman($tanggal_awal, $tanggal_akhir);

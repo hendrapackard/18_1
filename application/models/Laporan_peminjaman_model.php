@@ -4,6 +4,7 @@ class Laporan_peminjaman_model extends MY_Model
 {
     protected $table = 'peminjaman';
 
+    //Query Laporan Peminjaman
     public function laporanPeminjaman($tanggal_awal, $tanggal_akhir)
     {
         return $this->db->select('peminjaman.id_pinjam,peminjaman.tanggal_pinjam,user.no_induk,user.nama,buku.label_buku,judul.judul_buku')
