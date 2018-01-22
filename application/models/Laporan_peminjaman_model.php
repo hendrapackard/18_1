@@ -13,6 +13,7 @@ class Laporan_peminjaman_model extends MY_Model
             ->join('user','peminjaman.id_user = user.id_user')
             ->where('peminjaman.tanggal_pinjam >',$tanggal_awal)
             ->where('peminjaman.tanggal_pinjam <',$tanggal_akhir)
+            ->order_by('tanggal_pinjam','ASC')
             ->get($this->table)
             ->result();
     }
