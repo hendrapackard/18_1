@@ -59,6 +59,8 @@ $route['laporan-anggota'] = 'laporan_anggota/index';
 $route['cetak-laporan-anggota'] = 'laporan_anggota/cetak_laporan_anggota';
 $route['laporan-peminjaman'] = 'laporan_peminjaman/index';
 $route['cetak-laporan-peminjaman/(:any)/(:any)'] = 'laporan_peminjaman/cetak_laporan_peminjaman/$1/$2';
+$route['laporan-pengembalian'] = 'laporan_pengembalian/index';
+$route['cetak-laporan-pengembalian/(:any)/(:any)'] = 'laporan_pengembalian/cetak_laporan_pengembalian/$1/$2';
 
 
 
