@@ -47,6 +47,13 @@ ul.live-search-list li:hover {
     padding-top: 10px;
 }
 
+.cover_border {
+    width: 170px;
+    height: 250px;
+    border: 1px solid #aaaaaa;
+    padding: 2px;
+}
+
 .cover:hover {
     z-index: 4;
     transition: all 2s;
