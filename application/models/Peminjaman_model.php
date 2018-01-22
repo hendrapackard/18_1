@@ -118,6 +118,22 @@ class Peminjaman_model extends MY_Model
                 AND status != '4'";
         $item = $this->db->query($sql)->row()->jumlah_item;
 
+        if ($item < $this->maxItem) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //Mengecheck jumlah peminjaman untuk 2 input
+    public function cekMaxItem2($id_user)
+    {
+        $sql = "SELECT COUNT(id_pinjam) AS jumlah_item
+                FROM peminjaman
+                WHERE id_user = '$id_user'
+                AND status != '4'";
+        $item = $this->db->query($sql)->row()->jumlah_item;
+
         if ($item+1 < $this->maxItem) {
             return true;
         }

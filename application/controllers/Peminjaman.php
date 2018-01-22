@@ -86,8 +86,18 @@ class Peminjaman extends Admin_Controller
             $this->peminjaman->ubahStatusBuku($input->id_buku1, 'n');
             $this->session->set_flashdata('success', 'Berhasil meminjam buku');
 
-            //konfigurasi insert data jika judul pertama dan judul kedua yang diisi
-        } elseif ($this->peminjaman->insert2($input)) {
+        }
+
+        //Cek, melebihi jumlah maksimum input 2 buku
+        $id_user = $this->input->post('id_user');
+        if (!$this->peminjaman->cekMaxItem2($id_user)) {
+            $this->session->set_flashdata('error','Tidak boleh meminjam lebih dari 2 buku!');
+            redirect('peminjaman');
+            return;
+        }
+
+        //konfigurasi insert data jika judul pertama dan judul kedua yang diisi
+        elseif ($this->peminjaman->insert2($input)) {
 
             //Ubah status "is_ada" -> n
             $this->peminjaman->ubahStatusBuku($input->id_buku1, 'n');
