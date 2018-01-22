@@ -1,3 +1,32 @@
+//script untuk membuat menu yang  dengan jquery situs:http://gawibowo.com/menandai-highlight-halaman-aktif-di-menu-menggunakan-jquery.htm
+$(function() {
+    $('.ml-menu a[href~="' + location.href + '"]').parents('li').addClass('active');
+});
+$(function() {
+    $(".klik").click(function () {
+        $(this)
+    }).addClass("toggled");
+});
+
+$(function() {
+    $('.ml-menu a[href~="' + location.href + '"]').parents('ul').css({display:"block"});
+});
+////////////
+
+//Datepicker
+$(document).ready(function() {
+    //Textare auto growth
+    autosize($('textarea.auto-growth'));
+    $('.datepicker').bootstrapMaterialDatePicker({
+        // format: 'dddd DD MMMM YYYY',
+        format: 'YYYY-MM-DD',
+        clearButton: true,
+        weekStart: 1,
+        time: false
+    });
+});
+////////////
+
 //Konfigurasi Datatabel
     $(document).ready(function() {
         //datatable biasa
@@ -49,6 +78,7 @@
         ///
 
     });
+/////////////
 
 //konfigurasi tooltip-popovers
 $(function () {
@@ -83,35 +113,6 @@ function checkTime(i) {
 }
 setInterval(startTime, 500);
 /////////////////////////
-
-//Datepicker
-$(function () {
-    //Textare auto growth
-    autosize($('textarea.auto-growth'));
-    $('.datepicker').bootstrapMaterialDatePicker({
-        // format: 'dddd DD MMMM YYYY',
-        format: 'YYYY-MM-DD',
-        clearButton: true,
-        weekStart: 1,
-        time: false
-    });
-});
-////////////
-
-//script untuk membuat menu yang  dengan jquery situs:http://gawibowo.com/menandai-highlight-halaman-aktif-di-menu-menggunakan-jquery.htm
-$(function() {
-    $('.ml-menu a[href~="' + location.href + '"]').parents('li').addClass('active');
-});
-$(function() {
-    $(".klik").click(function () {
-        $(this)
-    }).addClass("toggled");
-});
-
-$(function() {
-    $('.ml-menu a[href~="' + location.href + '"]').parents('ul').css({display:"block"});
-});
-////////////
 
 //Form Transaksi Peminjaman Admin
 //userAutocomplete untuk admin (Ajax) oke
