@@ -83,7 +83,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <?php if ($pengembalians) : ?>
-                                    <table id="tabel_biasa" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <table class="table table-bordered table-striped table-hover tabel-no-search-length">
                                         <thead>
                                         <tr>
                                             <th>No</th>
