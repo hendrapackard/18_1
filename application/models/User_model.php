@@ -170,11 +170,11 @@ class User_model extends MY_Model
     //membuat otomatis nomor anggota
     public function autoNumber($table, $kolom, $lebar=0, $awalan=null)
     {
-        $this->db->select($kolom);
-        $this->db->limit(1);
-        $this->db->order_by($kolom, 'desc');
-        $this->db->from($table);
-        $query = $this->db->get();
+        $query = $this->db->select($kolom)
+                          ->limit(1)
+                          ->order_by($kolom, 'desc')
+                          ->from($table)
+                          ->get();
 
         $row = $query->result_array();
         $cek = $query->num_rows();

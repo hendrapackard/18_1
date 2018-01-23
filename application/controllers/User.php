@@ -58,20 +58,6 @@ class User extends Admin_Controller
         }
         // --------------------------------------------------------------------------------------
 
-        if (!empty($_FILES) && $_FILES['foto']['size'] > 0) {
-
-            $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk; //Cover file name
-            $upload = $this->user->uploadFoto('foto',$fotoFileName);
-
-            if ($upload) {
-                $input->foto = "$fotoFileName.jpg";
-
-        //Resize Foto
-                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",400,400);
-            }
-        }
-
         $data['autonumber'] = $this->user->autoNumber('user', 'no_anggota', 4, date("Ym"));
 
         //validasi
@@ -83,6 +69,21 @@ class User extends Admin_Controller
 
             $this->load->view('template',compact('main_view', 'form_action', 'heading', 'input','data'));
             return;
+        }
+
+        //upload new cover (if any)
+        if (!empty($_FILES) && $_FILES['foto']['size'] > 0) {
+
+            $no_induk = $this->input->post('no_induk');
+            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $upload = $this->user->uploadFoto('foto',$fotoFileName);
+
+            if ($upload) {
+                $input->foto = "$fotoFileName.jpg";
+
+                //Resize Foto
+                $this->user->fotoResize('foto',"./foto/$fotoFileName.jpg",400,400);
+            }
         }
 
         // Hash password
@@ -114,25 +115,6 @@ class User extends Admin_Controller
             $input->foto = $user->foto;
         }
 
-        //upload new cover (if any)
-        if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
-            //upload new cover (if any)
-            $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk; //Cover file name
-            $upload = $this->user->uploadFoto('foto', $fotoFileName);
-
-        //Resize to 100x150px
-            if ($upload) {
-                $input->foto = "$fotoFileName.jpg";
-                $this->user->fotoResize('foto', "./foto/$fotoFileName.jpg",400,400);
-
-        //Delete old foto
-                if ($user->foto) {
-                    $this->user->deleteFoto($user->foto);
-                }
-            }
-        }
-
         //validasi
         if (!$this->user->validate() ||
             $this->form_validation->error_array()) {
@@ -142,6 +124,25 @@ class User extends Admin_Controller
 
             $this->load->view('template',compact( 'main_view', 'heading','form_action','input'));
             return;
+        }
+
+        //upload new cover (if any)
+        if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
+            //upload new cover (if any)
+            $no_induk = $this->input->post('no_induk');
+            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $upload = $this->user->uploadFoto('foto', $fotoFileName);
+
+            //Resize to 100x150px
+            if ($upload) {
+                $input->foto = "$fotoFileName.jpg";
+                $this->user->fotoResize('foto', "./foto/$fotoFileName.jpg",400,400);
+
+                //Delete old foto
+                if ($user->foto) {
+                    $this->user->deleteFoto($user->foto);
+                }
+            }
         }
 
         //Passwordstring

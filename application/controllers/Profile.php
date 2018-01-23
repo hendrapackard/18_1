@@ -2,6 +2,7 @@
 
 class Profile extends Anggota_Controller
 {
+    //Menampilkan halaman Profile
     public function index()
     {
         $id     = $this->session->userdata('id_user');
@@ -15,6 +16,7 @@ class Profile extends Anggota_Controller
         $this->load->view('template',compact('main_view', 'profiles'));
     }
 
+    //Mengubah data profile
     public function edit()
     {
         $id = $this->session->userdata('id_user');
@@ -32,25 +34,7 @@ class Profile extends Anggota_Controller
             $input->password = '';
         }
 
-        //upload new cover (if any)
-        if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
-            //upload new cover (if any)
-            $no_induk = $this->input->post('no_induk');
-            $fotoFileName = $no_induk; //Cover file name
-            $upload = $this->profile->uploadFoto('foto', $fotoFileName);
-
-            if ($upload) {
-                $input->foto = "$fotoFileName.jpg";
-                $this->profile->fotoResize('foto', "./foto/$fotoFileName.jpg",400,400);
-
-//            Delete old foto
-                if ($profiles->foto) {
-                    $this->profile->deleteFoto($profiles->foto);
-                }
-            }
-        }
-
-
+        //validasi
         if (!$this->profile->validate() ||
             $this->form_validation->error_array()) {
             $main_view = 'profile/form';
@@ -58,6 +42,24 @@ class Profile extends Anggota_Controller
 
             $this->load->view('template', compact('main_view', 'form_action', 'input'));
             return;
+        }
+
+        //upload new cover (if any)
+        if(!empty($_FILES) && $_FILES['foto'] ['size'] > 0) {
+            //upload new cover (if any)
+            $no_induk = $this->input->post('no_induk');
+            $fotoFileName = $no_induk.'-'.date('YmdHis'); //Cover file name
+            $upload = $this->profile->uploadFoto('foto', $fotoFileName);
+
+            if ($upload) {
+                $input->foto = "$fotoFileName.jpg";
+                $this->profile->fotoResize('foto', "./foto/$fotoFileName.jpg",400,400);
+
+            //Delete old foto
+                if ($profiles->foto) {
+                    $this->profile->deleteFoto($profiles->foto);
+                }
+            }
         }
 
         //Passwordstring
@@ -81,6 +83,7 @@ class Profile extends Anggota_Controller
 
     }
 
+    //callback
     public function no_induk_unik()
     {
         $no_induk = $this->input->post('no_induk');

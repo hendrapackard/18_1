@@ -4,6 +4,7 @@ class Profile_model extends MY_Model
 {
     protected $table = 'user';
 
+    //Mendapatkan aturan validasi
     public function getValidationRules()
     {
         $validationRules = [
@@ -37,6 +38,7 @@ class Profile_model extends MY_Model
         return $validationRules;
     }
 
+    //Memberikan nilai default ketika pertama kali ditampilkan
     public function getDefaultValues()
     {
         return [
@@ -58,6 +60,7 @@ class Profile_model extends MY_Model
                         ->row();
     }
 
+    //untuk mengupload foto
     public function uploadFoto($fieldname, $filename)
     {
         $config = [
@@ -82,6 +85,7 @@ class Profile_model extends MY_Model
         }
     }
 
+    //mengubah ukuran foto
     public function fotoResize($fieldname, $source_path, $width, $height)
     {
         $config = [
@@ -102,6 +106,7 @@ class Profile_model extends MY_Model
         }
     }
 
+    //menghapus foto
     public function deleteFoto($imgFile)
     {
         if (file_exists("./foto/$imgFile")) {
