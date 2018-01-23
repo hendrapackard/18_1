@@ -67,7 +67,6 @@
                     <a href="<?= base_url();?>register">Register Now!</a>
                 </div>
             </div>
-            </form>
         </div>
     </div>
 </div>
@@ -83,6 +82,8 @@
 
 <!-- Custom Js -->
 <script src="<?= base_url();?>adminbsb/js/admin.js"></script>
+<script src="<?= base_url();?>adminbsb/js/app.js"></script>
+
 </body>
 
 </html>
