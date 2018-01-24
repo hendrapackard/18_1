@@ -1,8 +1,3 @@
-<?php
-//Login?
-$is_login = $this->session->userdata('is_login');
-?>
-
 <!--flash message-->
 <?php $this->load->view('_partial/flash_message') ?>
 <div class="row clearfix">

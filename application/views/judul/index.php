@@ -1,6 +1,4 @@
 <?php
-//Login?
-$is_login = $this->session->userdata('is_login');
 $level = $this->session->userdata('level');
 
 ?>

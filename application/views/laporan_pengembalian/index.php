@@ -1,5 +1,3 @@
-<?php $i = 0 ?>
-
     <!--flash message-->
 <?php $this->load->view('_partial/flash_message') ?>
 
