@@ -4,7 +4,7 @@ class Approve_pinjam_model extends MY_Model
 {
     //Server side
     protected $table = 'peminjaman';
-    protected $column_order = array('tanggal_pinjam','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable orderable
+    protected $column_order = array('tanggal_pinjam','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku',null,null); //set column field database for datatable orderable
     protected $column_search = array('tanggal_pinjam','kode_pinjam','no_induk','nama','nama_kelas','label_buku','judul_buku'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     protected $order = array('tanggal_pinjam' => 'desc'); // default order
 
