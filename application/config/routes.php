@@ -68,6 +68,7 @@ $route['peminjaman-anggota-create'] = 'peminjaman_anggota/create';
 $route['pengembalian-anggota'] = 'pengembalian_anggota';
 $route['approve-anggota'] = 'approve_anggota';
 $route['approve-pinjam'] = 'approve_pinjam';
+$route['approve-kembali'] = 'approve_kembali';
 
 
 
