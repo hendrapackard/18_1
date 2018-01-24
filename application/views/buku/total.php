@@ -1,4 +1,5 @@
 <?php
+$i = 0;
 $level = $this->session->userdata('level');
 ?>
 
