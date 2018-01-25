@@ -69,6 +69,9 @@ $route['pengembalian-anggota'] = 'pengembalian_anggota';
 $route['approve-anggota'] = 'approve_anggota';
 $route['approve-pinjam'] = 'approve_pinjam';
 $route['approve-kembali'] = 'approve_kembali';
+$route['cara-pinjam'] = 'about/cara';
+$route['visi'] = 'about/visi';
+$route['tata'] = 'about/tata';
 
 
 
