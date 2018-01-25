@@ -33,7 +33,7 @@ class Judul extends MY_Controller
                      "Dipinjam : " .($judul->jumlah_dipinjam != 0 ? anchor("buku/dipinjam/$judul->id_judul",$judul->jumlah_dipinjam) : $judul->jumlah_dipinjam) ;
 
             if($judul->cover)
-                $row[] = '<a href="'.base_url('cover/'.$judul->cover).'" target="_blank"><img src="'.base_url('cover/'.$judul->cover).'" style="border: 1px solid #aaaaaa; padding: 2px; width: 100px;" class="cover img-responsive" /></a>';
+                $row[] = '<img src="'.base_url('cover/'.$judul->cover).'" style="border: 1px solid #aaaaaa; padding: 2px; width: 100px;" class="cover img-responsive" /></a>';
             else
                 $row[] = '<img src="'.base_url('cover/no_cover.jpg').'" style="border: 1px solid #aaaaaa; padding: 2px; width: 100px;" class="cover img-responsive" />';
 
