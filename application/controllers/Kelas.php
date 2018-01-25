@@ -124,6 +124,7 @@ class Kelas extends Admin_Controller
             $this->form_validation->set_message('alpha_numeric_coma_dash_dot_space', 'Hanya boleh berisi huruf, spasi, tanda hubung(-),titik(.) dan koma (,).');
             return false;
         }
+        return true;
     }
 
     public function nama_kelas_unik()

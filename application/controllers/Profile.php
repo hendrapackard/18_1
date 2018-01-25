@@ -121,5 +121,6 @@ class Profile extends Anggota_Controller
             $this->form_validation->set_message('alpha_space', 'Hanya boleh berisi huruf dan spasi');
             return false;
         }
+        return true;
     }
 }

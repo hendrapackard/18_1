@@ -206,11 +206,12 @@ class Judul extends MY_Controller
 
     public function alpha_space($str)
     {
-        if (!preg_match('/^[a-zA-Z \-]+$/i',$str) )
+        if (!preg_match('/^[a-zA-Z  ]+$/i',$str) )
         {
             $this->form_validation->set_message('alpha_space', 'Hanya boleh berisi huruf dan spasi');
             return false;
         }
+        return true;
     }
 
 }

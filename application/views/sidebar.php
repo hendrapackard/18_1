@@ -218,7 +218,7 @@ $foto = $this->session->userdata('foto');
             &copy; <?= date('Y') ?> <a href="javascript:void(0);">SMAN 2 Cileungsi</a>
         </div>
         <div class="version">
-            <b>Designed by</b> <a href="http://hendrandroid10@gmail.com"> Hendra</a>. ({elapsed_time} seconds)
+            <b>Designed by</b> <a href="http://hendrandroid10@gmail.com"> Hendra</a>. ({elapsed_time} seconds) <?php if ($level === 'admin'): ?><?php echo  (ENVIRONMENT === 'development') ?  'CI '. CI_VERSION . '</strong>' : '' ?><?php endif ?>
         </div>
     </div>
     <!-- #Footer -->
